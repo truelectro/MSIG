@@ -61,7 +61,7 @@ export function GssFooter() {
               </p>
               <p className="text-xs text-[#A6969C] leading-relaxed">
                 Toll-free across all Ghanaian mobile networks (MTN, Telecel, AT).
-                Speak privately with a licensed midwife.
+                Speak privately with a Resource Person.
               </p>
             </div>
           </div>

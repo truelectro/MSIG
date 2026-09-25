@@ -27,7 +27,7 @@ export function GssTopicsMatrix() {
           </h2>
           <p className="text-base sm:text-lg text-[#574B51] font-gss-sans leading-relaxed">
             From university hostels to group chats, misinformation about reproductive health is
-            everywhere. Our sessions are facilitated by licensed MSI Ghana midwives who break
+            everywhere. Our sessions are facilitated by licensed MSI Ghana Resource Persons who break
             down science into honest, practical knowledge.
           </p>
         </div>

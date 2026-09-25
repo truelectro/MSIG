@@ -11,11 +11,11 @@ describe("Girls' Safe Space Configuration & Events Integration", () => {
     expect(gssEvent?.status).toBe("active");
   });
 
-  it("should have the UG Legon event configured for September 25", () => {
+  it("should have the UPSA event configured for September 25", () => {
     expect(gssCampusStops.length).toBe(1);
     const stop = gssCampusStops[0];
-    expect(stop.id).toBe("ug-legon");
-    expect(stop.shortName).toBe("UG Legon");
+    expect(stop.id).toBe("upsa");
+    expect(stop.shortName).toBe("UPSA");
     expect(stop.dateDisplay).toContain("September 25");
     expect(stop.timeDisplay).toBe("7:00 PM – 8:00 PM");
   });
@@ -55,7 +55,7 @@ describe("Girls' Safe Space Configuration & Events Integration", () => {
     const result = await submitGssRegistration({
       name: testName,
       phoneNumber: "0241234567",
-      stop: "UG Legon",
+      stop: "UPSA",
       sessionTime: "7:00 PM – 8:00 PM",
       reserveBk1Kit: true,
       reserveBreastExam: true,

@@ -3,7 +3,7 @@ import { GssRegistrationRecord } from "@/app/actions/gssRegistrationActions";
 
 export function exportRegistrationsToExcel(
   records: GssRegistrationRecord[],
-  filename = "Girls_Safe_Space_Registrations_UG_Legon.xlsx"
+  filename = "Girls_Safe_Space_Registrations_UPSA.xlsx"
 ) {
   const worksheetData = records.map((r, index) => ({
     "No.": index + 1,
@@ -13,7 +13,7 @@ export function exportRegistrationsToExcel(
     "Session Time": r.session_time,
     "BK-1 Kit Reserved": r.reserve_bk1_kit ? "YES" : "NO",
     "Breast Screening Slot": r.reserve_breast_exam ? "YES" : "NO",
-    "Confidential Question for Midwives": r.anonymous_question || "None",
+    "Confidential Question for Resource Persons": r.anonymous_question || "None",
     "Registration Date & Time": new Date(r.created_at).toLocaleString("en-GB", {
       dateStyle: "medium",
       timeStyle: "short",

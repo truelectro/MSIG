@@ -33,7 +33,7 @@ export default function AdminHubPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#662d91] px-3 py-1 rounded-full bg-purple-50">
-                  UG Legon • Sep 25
+                  UPSA • Sep 25
                 </span>
                 <ArrowUpRight className="w-5 h-5 text-gray-400 group-hover:text-[#662d91] transition-colors" />
               </div>
@@ -43,7 +43,7 @@ export default function AdminHubPage() {
                   Girls&apos; Safe Space
                 </h2>
                 <p className="text-xs text-[#574B51] mt-1 leading-relaxed">
-                  Attendee roster, BK-1 Backup Kit allocations, Pink October clinical breast exam slots, and midwife inquiries.
+                  Attendee roster, BK-1 Backup Kit allocations, Pink October clinical breast exam slots, and inquiries for Resource Persons.
                 </p>
               </div>
             </div>

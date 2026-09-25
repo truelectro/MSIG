@@ -5,7 +5,7 @@ import { GssRegistrationSection } from "@/components/girls-safe-space/GssRegistr
 export const metadata: Metadata = {
   title: "Register — Girls' Safe Space Campus Tour | MSI Ghana",
   description:
-    "Official registration for Girls' Safe Space at UG Legon. Reserve your free admission spot.",
+    "Official registration for Girls' Safe Space at UPSA. Reserve your free admission spot.",
 };
 
 export default function GirlSafeSpaceRegisterPage() {
@@ -17,7 +17,7 @@ export default function GirlSafeSpaceRegisterPage() {
         <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#EADFD7] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <h1 className="text-2xl sm:text-3xl font-black text-[#1A1416] tracking-tight">
-              UG Legon Campus Session
+              UPSA Campus Session
             </h1>
             <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#574B51] pt-1">
               <span className="inline-flex items-center gap-1.5 font-medium">

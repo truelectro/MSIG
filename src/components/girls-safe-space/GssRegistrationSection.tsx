@@ -9,7 +9,7 @@ export function GssRegistrationSection({ isStandalone = false }: { isStandalone?
   const [formData, setFormData] = useState({
     fullName: "",
     whatsappNumber: "",
-    campusId: "ug-legon",
+    campusId: "upsa",
     sessionSlot: "7:00 PM – 8:00 PM",
     reserveBk1Kit: false,
     reserveBreastExam: false,
@@ -72,7 +72,7 @@ export function GssRegistrationSection({ isStandalone = false }: { isStandalone?
           </span>
         </h2>
         <p className="text-sm sm:text-base text-[#574B51] font-gss-sans max-w-xl">
-          Attendance is 100% free. Connect with peer educators and licensed midwives in a welcoming,
+          Attendance is 100% free. Connect with peer educators and Resource Persons in a welcoming,
           judgment-free lifestyle space.
         </p>
       </div>
@@ -176,7 +176,7 @@ export function GssRegistrationSection({ isStandalone = false }: { isStandalone?
                   }
                   className="w-full pb-3 pt-1 border-b-2 border-[#EADFD7] focus:border-[#662d91] bg-transparent text-sm text-[#1A1416] focus:outline-none transition-colors cursor-pointer"
                 >
-                  <option value="7:00 PM – 8:00 PM">7:00 PM – 8:00 PM (UG Legon)</option>
+                  <option value="7:00 PM – 8:00 PM">7:00 PM – 8:00 PM (UPSA)</option>
                 </select>
               </div>
             </div>
@@ -188,7 +188,7 @@ export function GssRegistrationSection({ isStandalone = false }: { isStandalone?
                 htmlFor="anonymousQuestion"
                 className="block text-xs font-gss-sans font-bold uppercase tracking-wider text-[#1A1416]"
               >
-                Anonymous Question for our Midwives (Optional)
+                Anonymous Question for our Resource Persons (Optional)
               </label>
               <input
                 id="anonymousQuestion"

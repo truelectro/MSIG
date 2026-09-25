@@ -30,9 +30,9 @@ export interface GssFaq {
 
 export const gssCampusStops: GssCampusStop[] = [
   {
-    id: "ug-legon",
-    institution: "University of Ghana",
-    shortName: "UG Legon",
+    id: "upsa",
+    institution: "University of Professional Studies, Accra",
+    shortName: "UPSA",
     city: "Accra",
     dateDisplay: "September 25, 2026",
     timeDisplay: "7:00 PM – 8:00 PM",
@@ -98,7 +98,7 @@ export const gssTopics: GssTopicModule[] = [
     italicAccent: "Period Pain",
     tagline: "Stop being told that crippling cramps are 'just part of being a woman.'",
     description:
-      "Polycystic Ovary Syndrome (PCOS), painful cramps, and irregular cycles affect tens of thousands of Ghanaian students silently. Our certified midwives outline common red flags, how to seek ultrasound diagnosis without dismissive doctors, and lifestyle interventions that genuinely help.",
+      "Polycystic Ovary Syndrome (PCOS), painful cramps, and irregular cycles affect tens of thousands of Ghanaian students silently. Our certified Resource Persons outline common red flags, how to seek ultrasound diagnosis without dismissive doctors, and lifestyle interventions that genuinely help.",
     takeaways: [
       "Recognizing subtle signs of hormonal imbalance & PCOS",
       "Distinguishing normal period cramps from chronic conditions",
@@ -151,7 +151,7 @@ export const gssFaqs: GssFaq[] = [
   {
     question: "How is my privacy and confidentiality guaranteed?",
     answer:
-      "We operate under strict medical confidentiality protocols. No names or personal details are shared with university faculties, halls of residence, or outside parties. Private clinical breast screenings and midwife consultations take place inside sound-dampened, discrete wellness pods where only you and the certified clinician are present.",
+      "We operate under strict medical confidentiality protocols. No names or personal details are shared with university faculties, halls of residence, or outside parties. Private clinical breast screenings and consultations with Resource Persons take place inside sound-dampened, discrete wellness pods where only you and the certified clinician are present.",
     category: "privacy",
   },
   {
@@ -163,7 +163,7 @@ export const gssFaqs: GssFaq[] = [
   {
     question: "Do I have to do the breast screening if I attend?",
     answer:
-      "Not at all. The Pink October clinical breast examination is completely voluntary. When registering, you can choose whether or not to reserve a screening slot. If you change your mind at any point during the event, our midwives will respect your preference completely.",
+      "Not at all. The Pink October clinical breast examination is completely voluntary. When registering, you can choose whether or not to reserve a screening slot. If you change your mind at any point during the event, our Resource Persons will respect your preference completely.",
     category: "services",
   },
   {

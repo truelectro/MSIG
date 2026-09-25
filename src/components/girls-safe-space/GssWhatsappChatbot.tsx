@@ -18,7 +18,7 @@ export function GssWhatsappChatbot() {
 
         <p className="text-base sm:text-lg text-[#574B51] font-gss-sans max-w-xl mx-auto leading-relaxed">
           You don&apos;t have to wait for the campus tour stop to get clear, medically verified answers.
-          Chat anonymously with Maya—MSI Ghana&apos;s 24/7 WhatsApp companion backed by licensed midwives.
+          Chat anonymously with Maya—MSI Ghana&apos;s 24/7 WhatsApp companion backed by Resource Persons.
         </p>
 
         <div className="pt-2 flex justify-center">

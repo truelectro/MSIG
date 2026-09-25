@@ -101,7 +101,7 @@ export function GssAdminLogin({ onLoginSuccess }: Props) {
             Coordinator Admin Portal
           </h1>
           <p className="text-xs text-[#574B51] max-w-xs mx-auto">
-            Attendee roster management &amp; kit allocation for Girls&apos; Safe Space at UG Legon.
+            Attendee roster management &amp; kit allocation for Girls&apos; Safe Space at UPSA.
           </p>
         </div>
 

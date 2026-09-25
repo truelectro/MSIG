@@ -123,7 +123,7 @@ export function AdminDashboardClient({
   const [addForm, setAddForm] = useState({
     name: "",
     phoneNumber: "",
-    stop: "UG Legon",
+    stop: "UPSA",
     sessionTime: "7:00 PM – 8:00 PM",
     reserveBk1Kit: true,
     reserveBreastExam: true,
@@ -171,7 +171,7 @@ export function AdminDashboardClient({
         setAddForm({
           name: "",
           phoneNumber: "",
-          stop: "UG Legon",
+          stop: "UPSA",
           sessionTime: "7:00 PM – 8:00 PM",
           reserveBk1Kit: true,
           reserveBreastExam: true,
@@ -326,7 +326,7 @@ export function AdminDashboardClient({
                   </h1>
                 </div>
                 <p className="text-[11px] text-[#8A7980] hidden sm:block">
-                  MSI Ghana • UG Legon Campus Event • September 25, 2026
+                  MSI Ghana • UPSA Campus Event • September 25, 2026
                 </p>
               </div>
             </div>
@@ -423,7 +423,7 @@ export function AdminDashboardClient({
               Live Event Schedule & Roster
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-[#1A1416] tracking-tight">
-              UG Legon Campus Session
+              UPSA Campus Session
             </h2>
             <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#574B51] pt-1">
               <span className="inline-flex items-center gap-1.5">
@@ -517,7 +517,7 @@ export function AdminDashboardClient({
           <div className="p-5 sm:p-6 rounded-3xl bg-white border border-[#EADFD7] shadow-xs space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-[#8A7980]">
-                Midwife Questions
+                Questions for Resource Persons
               </span>
               <div className="w-9 h-9 rounded-2xl bg-emerald-50 text-[#107C41] flex items-center justify-center">
                 <MessageCircleQuestion className="w-5 h-5" />
@@ -604,7 +604,7 @@ export function AdminDashboardClient({
               Showing <strong>{filteredRecords.length}</strong> of <strong>{records.length}</strong> registered attendees
             </span>
             <span className="hidden sm:inline">
-              Click any row to inspect complete details and midwife inquiries
+              Click any row to inspect complete details and questions for Resource Persons
             </span>
           </div>
         </div>
@@ -622,7 +622,7 @@ export function AdminDashboardClient({
                   <th className="py-4 px-6">Session Time</th>
                   <th className="py-4 px-6 text-center">BK-1 Kit</th>
                   <th className="py-4 px-6 text-center">Breast Exam</th>
-                  <th className="py-4 px-6">Midwife Question</th>
+                  <th className="py-4 px-6">Question for Resource Persons</th>
                   <th className="py-4 px-6 text-right">Actions</th>
                 </tr>
               </thead>
@@ -739,7 +739,7 @@ export function AdminDashboardClient({
                           )}
                         </td>
 
-                        {/* Midwife Question */}
+                        {/* Question for Resource Persons */}
                         <td className="py-4 px-6 max-w-xs truncate">
                           {attendee.anonymous_question ? (
                             <span
@@ -872,7 +872,7 @@ export function AdminDashboardClient({
               {/* Confidential Question */}
               <div>
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#8A7980] block mb-1.5">
-                  Confidential Question for Midwives:
+                  Confidential Question for Resource Persons:
                 </span>
                 <div className="p-4 rounded-2xl bg-purple-50/50 border border-purple-100 text-xs sm:text-sm text-[#1A1416]">
                   {selectedAttendee.anonymous_question ? (
@@ -1009,11 +1009,11 @@ export function AdminDashboardClient({
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1416] mb-1">
-                  Confidential Midwife Question (Optional)
+                  Confidential Question for Resource Persons (Optional)
                 </label>
                 <input
                   type="text"
-                  placeholder="Optional question for clinical midwives"
+                  placeholder="Optional question for Resource Persons"
                   value={addForm.anonymousQuestion}
                   onChange={(e) => setAddForm({ ...addForm, anonymousQuestion: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-[#EADFD7] text-sm focus:outline-none focus:border-[#662d91]"

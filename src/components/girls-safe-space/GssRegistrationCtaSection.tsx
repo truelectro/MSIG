@@ -18,7 +18,7 @@ export function GssRegistrationCtaSection() {
         </h2>
 
         <p className="text-sm sm:text-base text-[#574B51] font-gss-sans max-w-xl mx-auto leading-relaxed">
-          Attendance is 100% free. Connect with peer educators and licensed midwives in a welcoming,
+          Attendance is 100% free. Connect with peer educators and Resource Persons in a welcoming,
           judgment-free lifestyle space.
         </p>
 
@@ -29,7 +29,7 @@ export function GssRegistrationCtaSection() {
           </span>
           <span className="inline-flex items-center gap-1.5 font-medium">
             <Clock className="w-4 h-4 text-[#662d91]" />
-            7:00 PM – 8:00 PM (UG Legon)
+            7:00 PM – 8:00 PM (UPSA)
           </span>
         </div>
 

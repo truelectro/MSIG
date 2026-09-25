@@ -6,7 +6,7 @@ import { GssCampusTour } from "@/components/girls-safe-space/GssCampusTour";
 export const metadata: Metadata = {
   title: "Girls' Safe Space — Campus Wellness & Reproductive Health Tour 2026 | MSI Ghana",
   description:
-    "A welcoming lifestyle sanctuary bridging reproductive healthcare and young Ghanaian women. Cycle syncing, modern birth control literacy, and peer sisterhood across UG Legon, KNUST, UPSA, UCC, TTU, UDS and Accra.",
+    "A welcoming lifestyle sanctuary bridging reproductive healthcare and young Ghanaian women. Cycle syncing, modern birth control literacy, and peer sisterhood across UPSA, KNUST, UCC, TTU, UDS, Legon and Accra.",
   openGraph: {
     title: "Girls' Safe Space — Health Meets Sisterhood | MSI Ghana",
     description:

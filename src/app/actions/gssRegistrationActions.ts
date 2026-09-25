@@ -119,7 +119,7 @@ export async function submitGssRegistration(
     id: `gss-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
     name: input.name.trim(),
     phone_number: input.phoneNumber.trim(),
-    stop: input.stop || "UG Legon",
+    stop: input.stop || "UPSA",
     session_time: input.sessionTime || "7:00 PM – 8:00 PM",
     reserve_bk1_kit: input.reserveBk1Kit ?? false,
     reserve_breast_exam: input.reserveBreastExam ?? false,
