@@ -9,12 +9,12 @@ export function GssHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
-    { href: "#about", label: "About" },
-    { href: "#register", label: "Register" },
-    { href: "#topics", label: "Topics" },
-    { href: "#bk1", label: "BK-1 Kit" },
-    { href: "#care", label: "Screenings" },
-    { href: "#tour", label: "Campus Tour" },
+    { href: "/girl-safe-space#about", label: "About" },
+    { href: "/girl-safe-space/register", label: "Register" },
+    { href: "/girl-safe-space#topics", label: "Topics" },
+    { href: "/girl-safe-space#bk1", label: "BK-1 Kit" },
+    { href: "/girl-safe-space#care", label: "Screenings" },
+    { href: "/girl-safe-space#tour", label: "Campus Tour" },
   ];
 
   return (
@@ -53,23 +53,23 @@ export function GssHeader() {
           >
             All Events
           </Link>
-          <a
-            href="#register"
+          <Link
+            href="/girl-safe-space/register"
             className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#662d91] hover:bg-[#522277] text-white text-xs font-gss-sans font-bold uppercase tracking-wider transition-all shadow-sm hover:shadow-[#662d91]/25"
           >
             <span>Reserve Free Spot</span>
             <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
-          </a>
+          </Link>
         </div>
 
         {/* Mobile menu toggle */}
         <div className="flex md:hidden items-center gap-3">
-          <a
-            href="#register"
+          <Link
+            href="/girl-safe-space/register"
             className="px-4 py-1.5 rounded-full bg-[#662d91] text-white text-xs font-gss-sans font-bold uppercase"
           >
             RSVP
-          </a>
+          </Link>
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -96,13 +96,13 @@ export function GssHeader() {
               </a>
             ))}
             <div className="pt-4 border-t border-[#EADFD7] flex flex-col gap-3">
-              <a
-                href="#register"
+              <Link
+                href="/girl-safe-space/register"
                 onClick={() => setMobileOpen(false)}
                 className="w-full text-center py-3 rounded-full bg-[#662d91] hover:bg-[#522277] text-white text-xs font-bold uppercase tracking-wider"
               >
                 Reserve Free Spot & BK-1 Kit
-              </a>
+              </Link>
               <Link
                 href="/"
                 className="text-center text-xs text-[#8A7980] hover:text-[#662d91]"

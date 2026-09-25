@@ -40,7 +40,7 @@ export function GssPinkOctoberSection() {
 
             <div className="pt-2">
               <a
-                href="#register"
+                href="/girl-safe-space/register"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#1A1416] hover:bg-[#D94B6D] text-white font-gss-sans font-bold text-xs uppercase tracking-wider transition-all"
               >
                 <span>Book a Screening Slot</span>

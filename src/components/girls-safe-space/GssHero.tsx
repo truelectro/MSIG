@@ -28,7 +28,7 @@ export function GssHero() {
 
             <div className="pt-2 flex items-center gap-6">
               <a
-                href="#register"
+                href="/girl-safe-space/register"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#662d91] hover:bg-[#522277] text-white font-gss-sans font-bold text-sm tracking-wide transition-all shadow-sm hover:shadow-md hover:shadow-[#662d91]/25"
               >
                 <span>Reserve Free Entry & Kit</span>

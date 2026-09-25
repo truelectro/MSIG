@@ -57,7 +57,7 @@ export function GssBk1Showcase() {
 
             <div className="pt-2">
               <a
-                href="#register"
+                href="/girl-safe-space/register"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#1A1416] hover:bg-[#662d91] text-white font-gss-sans font-bold text-xs uppercase tracking-wider transition-all shadow-sm hover:shadow-md hover:shadow-[#662d91]/20"
               >
                 <span>Reserve Your Free Kit</span>

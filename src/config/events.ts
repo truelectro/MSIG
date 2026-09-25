@@ -44,7 +44,7 @@ export const msigEvents: MsigEventItem[] = [
       "24/7 confidential WhatsApp SRH chatbot onboarding",
     ],
     subpageUrl: "/girl-safe-space",
-    registrationUrl: "/girl-safe-space#register",
+    registrationUrl: "/girl-safe-space/register",
     logoId: "girls-safe-space",
     accentColor: "pink",
     featuredBadge: "Active • Free Registration Open",

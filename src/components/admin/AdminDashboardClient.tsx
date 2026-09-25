@@ -1026,7 +1026,7 @@ export function AdminDashboardClient({
             Event Homepage
           </Link>
           <span>•</span>
-          <Link href="/girl-safe-space#register" className="hover:text-[#662d91] font-semibold transition-colors">
+          <Link href="/girl-safe-space/register" className="hover:text-[#662d91] font-semibold transition-colors">
             Public RSVP Form
           </Link>
           <span>•</span>

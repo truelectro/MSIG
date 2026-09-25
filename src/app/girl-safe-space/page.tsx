@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { GssHero } from "@/components/girls-safe-space/GssHero";
-import { GssRegistrationSection } from "@/components/girls-safe-space/GssRegistrationSection";
+import { GssRegistrationCtaSection } from "@/components/girls-safe-space/GssRegistrationCtaSection";
 import { GssTopicsMatrix } from "@/components/girls-safe-space/GssTopicsMatrix";
 import { GssBk1Showcase } from "@/components/girls-safe-space/GssBk1Showcase";
 import { GssPinkOctoberSection } from "@/components/girls-safe-space/GssPinkOctoberSection";
@@ -26,8 +26,8 @@ export default function GirlSafeSpacePage() {
       {/* 1. Hero Section */}
       <GssHero />
 
-      {/* 2. Registration Section (Positioned immediately below the hero) */}
-      <GssRegistrationSection />
+      {/* 2. Registration CTA Callout (Directs to separate /girl-safe-space/register page) */}
+      <GssRegistrationCtaSection />
 
       {/* 3. SRH Topics & Body Literacy Matrix */}
       <GssTopicsMatrix />

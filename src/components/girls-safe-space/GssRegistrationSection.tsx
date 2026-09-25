@@ -5,7 +5,7 @@ import { ArrowUpRight, Check, AlertCircle } from "lucide-react";
 import { gssCampusStops } from "@/config/girlsSafeSpaceConfig";
 import { submitGssRegistration } from "@/app/actions/gssRegistrationActions";
 
-export function GssRegistrationSection() {
+export function GssRegistrationSection({ isStandalone = false }: { isStandalone?: boolean }) {
   const [formData, setFormData] = useState({
     fullName: "",
     whatsappNumber: "",
@@ -61,63 +61,40 @@ export function GssRegistrationSection() {
     }
   };
 
-  return (
-    <section id="register" className="py-20 bg-white border-y border-[#EADFD7]">
-      <div className="max-w-4xl mx-auto px-6 lg:px-12">
-        {/* Section Header */}
-        <div className="space-y-4 mb-12">
-          <span className="text-xs font-gss-sans font-bold uppercase tracking-widest text-[#662d91]">
-            (02) Pre-Registration
+  const formInner = (
+    <div className={isStandalone ? "p-6 sm:p-10 lg:p-12" : "max-w-4xl mx-auto px-6 lg:px-12"}>
+      {/* Section Header */}
+      <div className="space-y-4 mb-10">
+        <span className="text-xs font-gss-sans font-bold uppercase tracking-widest text-[#662d91]">
+          {isStandalone ? "Free Campus Registration" : "(02) Pre-Registration"}
+        </span>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-gss-sans font-black text-[#1A1416] tracking-tight">
+          Reserve Your Free Spot on{" "}
+          <span className="font-gss-editorial italic font-normal text-[#662d91]">
+            Campus
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-gss-sans font-black text-[#1A1416] tracking-tight">
-            Reserve Your Free Spot on{" "}
-            <span className="font-gss-editorial italic font-normal text-[#662d91]">
-              Campus
-            </span>
-          </h2>
-          <p className="text-sm sm:text-base text-[#574B51] font-gss-sans max-w-xl">
-            Attendance is 100% free. Every attendee receives an educational cycle journal,
-            access to private midwife consultation pods, and a complimentary take-home BK-1 Backup Kit.
+        </h2>
+        <p className="text-sm sm:text-base text-[#574B51] font-gss-sans max-w-xl">
+          Attendance is 100% free. Every attendee receives an educational cycle journal,
+          access to private midwife consultation pods, and a complimentary take-home BK-1 Backup Kit.
+        </p>
+      </div>
+
+      {submitted ? (
+        /* Clean Confirmation State: message only */
+        <div className="p-8 sm:p-12 rounded-[32px] bg-[#FAF8F5] border border-[#EADFD7] space-y-3">
+          <span className="text-xs font-gss-sans font-bold uppercase tracking-widest text-[#3F6E54] block">
+            Reservation Confirmed
+          </span>
+          <h3 className="text-2xl sm:text-3xl font-gss-sans font-bold text-[#1A1416]">
+            We can&apos;t wait to meet you, {formData.fullName || "friend"}.
+          </h3>
+          <p className="text-sm text-[#574B51] font-gss-sans leading-relaxed">
+            Your spot is confirmed for <strong>{selectedCampus.shortName}</strong> ({selectedCampus.dateDisplay}).
+            {formData.reserveBk1Kit && " A complimentary BK-1 Backup Kit is reserved in your name for pickup at check-in."}
           </p>
         </div>
-
-        {submitted ? (
-          /* Clean Confirmation State */
-          <div className="p-8 sm:p-12 rounded-[32px] bg-[#FAF8F5] border border-[#EADFD7] space-y-6">
-            <div className="space-y-2">
-              <span className="text-xs font-gss-sans font-bold uppercase tracking-widest text-[#3F6E54]">
-                Reservation Confirmed
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-gss-sans font-bold text-[#1A1416]">
-                We can&apos;t wait to meet you, {formData.fullName || "friend"}.
-              </h3>
-              <p className="text-sm text-[#574B51] font-gss-sans leading-relaxed">
-                Your spot is confirmed for <strong>{selectedCampus.shortName}</strong> ({selectedCampus.dateDisplay}).
-                {formData.reserveBk1Kit && " A complimentary BK-1 Backup Kit is reserved in your name for pickup at check-in."}
-              </p>
-            </div>
-
-            <div className="pt-4 border-t border-[#EADFD7] flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <a
-                href="https://wa.me/233550000000?text=Hello%20Maya!%20I%20just%20registered%20for%20Girls%20Safe%20Space."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#25D366] text-white font-gss-sans font-bold text-xs uppercase tracking-wider hover:bg-[#1EBE5D] transition-colors"
-              >
-                <span>Save Chatbot Contact on WhatsApp</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-
-              <button
-                type="button"
-                onClick={() => setSubmitted(false)}
-                className="text-xs font-gss-sans font-semibold text-[#8A7980] hover:text-[#1A1416] underline underline-offset-4"
-              >
-                Register another person
-              </button>
-            </div>
-          </div>
-        ) : (
+      ) : (
           /* Editorial Registration Form */
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -287,6 +264,15 @@ export function GssRegistrationSection() {
           </form>
         )}
       </div>
+    );
+
+  if (isStandalone) {
+    return formInner;
+  }
+
+  return (
+    <section id="register" className="py-20 bg-white border-y border-[#EADFD7]">
+      {formInner}
     </section>
   );
 }

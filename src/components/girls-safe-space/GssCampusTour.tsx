@@ -50,7 +50,7 @@ export function GssCampusTour() {
               {/* Action Column */}
               <div className="shrink-0 flex items-center gap-4 pt-2 md:pt-0">
                 <a
-                  href="#register"
+                  href="/girl-safe-space/register"
                   className="inline-flex items-center gap-1.5 text-xs font-gss-sans font-bold uppercase tracking-wider text-[#662d91] hover:text-[#522277] transition-colors"
                 >
                   <span>Reserve Pass</span>

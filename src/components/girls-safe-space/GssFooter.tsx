@@ -32,9 +32,9 @@ export function GssFooter() {
                 </a>
               </li>
               <li>
-                <a href="#register" className="hover:text-white transition-colors">
+                <Link href="/girl-safe-space/register" className="hover:text-white transition-colors">
                   Reserve Free Spot
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#topics" className="hover:text-white transition-colors">
