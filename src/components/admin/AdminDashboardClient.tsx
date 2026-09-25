@@ -258,9 +258,9 @@ export function AdminDashboardClient({
   return (
     <div className="min-h-screen bg-[#FBF9F7] text-[#1A1416] font-sans antialiased pb-24">
       {/* Top Navigation Bar */}
-      <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-[#EADFD7] shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
+      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#EADFD7] shadow-xs py-4 px-4 sm:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-6">
+          <div className="flex items-center gap-3 sm:gap-4">
             <Link
               href="/girl-safe-space"
               className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#662d91] hover:text-[#522277] transition-colors py-2 px-3 rounded-xl hover:bg-[#FAF8F5] border border-transparent hover:border-[#EADFD7]"
@@ -293,22 +293,13 @@ export function AdminDashboardClient({
 
           {/* Status Badge & Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border bg-white shadow-2xs">
+            <div className="hidden md:flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold border bg-white shadow-2xs">
               {!isDemo ? (
-                <>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-emerald-800">Supabase Connected</span>
-                </>
+                <span className="text-emerald-700">Supabase Connected</span>
               ) : hasLiveRecords ? (
-                <>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-emerald-800">Live Roster Active ({effectiveRecords.length})</span>
-                </>
+                <span className="text-emerald-700">Live Roster Active ({effectiveRecords.length})</span>
               ) : (
-                <>
-                  <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                  <span className="text-amber-800">Demo Records Mode</span>
-                </>
+                <span className="text-amber-700">Demo Records Mode</span>
               )}
             </div>
 
@@ -330,21 +321,12 @@ export function AdminDashboardClient({
               <PlusCircle className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Add RSVP</span>
             </button>
-
-            {/* Export to Excel Primary Button */}
-            <button
-              onClick={handleExportExcel}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#107C41] hover:bg-[#0D6535] text-white text-xs font-bold uppercase tracking-wider shadow-xs hover:shadow-md transition-all active:scale-98"
-            >
-              <FileSpreadsheet className="w-4 h-4" />
-              <span>Export to Excel</span>
-            </button>
           </div>
         </div>
       </header>
 
       {/* Main Content Container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-8 sm:pt-10 space-y-6">
         {/* Banner Notice if present */}
         {bannerNotice && (
           <div
@@ -425,10 +407,6 @@ export function AdminDashboardClient({
               <span className="inline-flex items-center gap-1.5">
                 <Clock className="w-4 h-4 text-[#662d91]" />
                 <strong>7:00 PM – 8:00 PM</strong>
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <MapPin className="w-4 h-4 text-[#ec008c]" />
-                Athletic Oval Wellness Pavilion, Legon Campus
               </span>
             </div>
           </div>

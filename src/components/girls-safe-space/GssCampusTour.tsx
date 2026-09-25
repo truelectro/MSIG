@@ -40,14 +40,11 @@ export function GssCampusTour() {
                 </span>
               </div>
 
-              {/* Institution & Venue Column */}
+              {/* Institution Column */}
               <div className="flex-1 min-w-0">
                 <h3 className="text-xl sm:text-2xl font-gss-sans font-bold text-[#1A1416] group-hover:text-[#662d91] transition-colors">
                   {stop.shortName} <span className="text-sm font-normal text-[#8A7980]">({stop.city})</span>
                 </h3>
-                <p className="text-xs sm:text-sm text-[#574B51] font-gss-sans mt-0.5">
-                  {stop.venue}
-                </p>
               </div>
 
               {/* Action Column */}

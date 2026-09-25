@@ -3,7 +3,7 @@ export interface GssCampusStop {
   institution: string;
   shortName: string;
   city: string;
-  venue: string;
+  venue?: string;
   dateDisplay: string;
   timeDisplay: string;
   spotsLeft: number;
@@ -34,7 +34,6 @@ export const gssCampusStops: GssCampusStop[] = [
     institution: "University of Ghana",
     shortName: "UG Legon",
     city: "Accra",
-    venue: "Athletic Oval Wellness Pavilion, Legon Campus",
     dateDisplay: "September 25, 2026",
     timeDisplay: "7:00 PM – 8:00 PM",
     spotsLeft: 42,
