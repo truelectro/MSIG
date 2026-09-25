@@ -1,13 +1,11 @@
 -- =========================================================================
--- MSI Ghana Events — Complete Database Schema for Supabase
--- Tables:
--- 1. public.girls_safe_space_registrations
--- 2. public.ride_your_flame_registrations
+-- MSI Ghana Events — Complete Supabase Database Schema
+-- Idempotent & Safe to run repeatedly without 42710 policy errors.
+-- Run in your Supabase SQL Editor:
+-- https://supabase.com/dashboard/project/qrfoifqbcgojvpwtlpon/sql/new
 -- =========================================================================
 
--- -------------------------------------------------------------------------
 -- 1. Girls' Safe Space Registrations Table
--- -------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.girls_safe_space_registrations (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
@@ -20,52 +18,38 @@ CREATE TABLE IF NOT EXISTS public.girls_safe_space_registrations (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- Enable Row Level Security
 ALTER TABLE public.girls_safe_space_registrations ENABLE ROW LEVEL SECURITY;
 
--- RLS Policies for Girls' Safe Space
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_policies 
-        WHERE tablename = 'girls_safe_space_registrations' 
-        AND policyname = 'Allow public insertions for GSS registrations'
-    ) THEN
-        CREATE POLICY "Allow public insertions for GSS registrations" 
-        ON public.girls_safe_space_registrations 
-        FOR INSERT 
-        TO anon, authenticated
-        WITH CHECK (true);
-    END IF;
+-- Grant permissions to public anon and authenticated roles
+GRANT ALL ON TABLE public.girls_safe_space_registrations TO anon, authenticated, service_role;
 
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_policies 
-        WHERE tablename = 'girls_safe_space_registrations' 
-        AND policyname = 'Allow reading GSS registrations'
-    ) THEN
-        CREATE POLICY "Allow reading GSS registrations" 
-        ON public.girls_safe_space_registrations 
-        FOR SELECT 
-        TO anon, authenticated
-        USING (true);
-    END IF;
+-- Drop existing policies if they already exist (prevents ERROR 42710)
+DROP POLICY IF EXISTS "Allow public insertions for GSS registrations" ON public.girls_safe_space_registrations;
+DROP POLICY IF EXISTS "Allow reading GSS registrations" ON public.girls_safe_space_registrations;
+DROP POLICY IF EXISTS "Allow deleting GSS registrations" ON public.girls_safe_space_registrations;
 
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_policies 
-        WHERE tablename = 'girls_safe_space_registrations' 
-        AND policyname = 'Allow deleting GSS registrations'
-    ) THEN
-        CREATE POLICY "Allow deleting GSS registrations" 
-        ON public.girls_safe_space_registrations 
-        FOR DELETE 
-        TO anon, authenticated
-        USING (true);
-    END IF;
-END $$;
+-- Recreate policies cleanly
+CREATE POLICY "Allow public insertions for GSS registrations" 
+ON public.girls_safe_space_registrations 
+FOR INSERT 
+TO anon, authenticated 
+WITH CHECK (true);
+
+CREATE POLICY "Allow reading GSS registrations" 
+ON public.girls_safe_space_registrations 
+FOR SELECT 
+TO anon, authenticated 
+USING (true);
+
+CREATE POLICY "Allow deleting GSS registrations" 
+ON public.girls_safe_space_registrations 
+FOR DELETE 
+TO anon, authenticated 
+USING (true);
 
 
--- -------------------------------------------------------------------------
 -- 2. Ride Your Flame (Cycling Fondo) Registrations Table
--- -------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.ride_your_flame_registrations (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     reference_code TEXT NOT NULL UNIQUE,
@@ -85,44 +69,35 @@ CREATE TABLE IF NOT EXISTS public.ride_your_flame_registrations (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- Enable Row Level Security
 ALTER TABLE public.ride_your_flame_registrations ENABLE ROW LEVEL SECURITY;
 
--- RLS Policies for Ride Your Flame
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_policies 
-        WHERE tablename = 'ride_your_flame_registrations' 
-        AND policyname = 'Allow public insertions for RYF registrations'
-    ) THEN
-        CREATE POLICY "Allow public insertions for RYF registrations" 
-        ON public.ride_your_flame_registrations 
-        FOR INSERT 
-        TO anon, authenticated
-        WITH CHECK (true);
-    END IF;
+-- Grant permissions to public anon and authenticated roles
+GRANT ALL ON TABLE public.ride_your_flame_registrations TO anon, authenticated, service_role;
 
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_policies 
-        WHERE tablename = 'ride_your_flame_registrations' 
-        AND policyname = 'Allow reading RYF registrations'
-    ) THEN
-        CREATE POLICY "Allow reading RYF registrations" 
-        ON public.ride_your_flame_registrations 
-        FOR SELECT 
-        TO anon, authenticated
-        USING (true);
-    END IF;
+-- Drop existing policies if they already exist (prevents ERROR 42710)
+DROP POLICY IF EXISTS "Allow public insertions for RYF registrations" ON public.ride_your_flame_registrations;
+DROP POLICY IF EXISTS "Allow reading RYF registrations" ON public.ride_your_flame_registrations;
+DROP POLICY IF EXISTS "Allow deleting RYF registrations" ON public.ride_your_flame_registrations;
 
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_policies 
-        WHERE tablename = 'ride_your_flame_registrations' 
-        AND policyname = 'Allow deleting RYF registrations'
-    ) THEN
-        CREATE POLICY "Allow deleting RYF registrations" 
-        ON public.ride_your_flame_registrations 
-        FOR DELETE 
-        TO anon, authenticated
-        USING (true);
-    END IF;
-END $$;
+-- Recreate policies cleanly
+CREATE POLICY "Allow public insertions for RYF registrations" 
+ON public.ride_your_flame_registrations 
+FOR INSERT 
+TO anon, authenticated 
+WITH CHECK (true);
+
+CREATE POLICY "Allow reading RYF registrations" 
+ON public.ride_your_flame_registrations 
+FOR SELECT 
+TO anon, authenticated 
+USING (true);
+
+CREATE POLICY "Allow deleting RYF registrations" 
+ON public.ride_your_flame_registrations 
+FOR DELETE 
+TO anon, authenticated 
+USING (true);
+
+-- 3. Notify PostgREST to reload schema cache immediately
+NOTIFY pgrst, 'reload schema';
