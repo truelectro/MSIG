@@ -33,10 +33,18 @@ import { RideYourFlameLogo } from "@/components/events/EventLogos";
 
 interface Props {
   initialRecords: RyfExportRecord[];
+  isDemo?: boolean;
+  dbError?: string;
 }
 
-export function RyfAdminDashboardClient({ initialRecords }: Props) {
+export function RyfAdminDashboardClient({
+  initialRecords,
+  isDemo: initialIsDemo = true,
+  dbError: initialDbError,
+}: Props) {
   const [records, setRecords] = useState<RyfExportRecord[]>(initialRecords);
+  const [isDemo, setIsDemo] = useState(initialIsDemo);
+  const [dbError, setDbError] = useState<string | undefined>(initialDbError);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -51,11 +59,13 @@ export function RyfAdminDashboardClient({ initialRecords }: Props) {
   const handleRefresh = async () => {
     setIsRefreshing(true);
     try {
-      const data = await getRyfRegistrations();
-      setRecords(data);
+      const res = await getRyfRegistrations();
+      setRecords(res.data);
+      setIsDemo(res.isDemo);
+      setDbError(res.error);
       setBannerNotice({
         type: "success",
-        message: `Rider roster refreshed. ${data.length} registered rider(s) loaded.`,
+        message: `Rider roster refreshed. ${res.data.length} registered rider(s) loaded.`,
       });
     } catch {
       setBannerNotice({
@@ -154,6 +164,20 @@ export function RyfAdminDashboardClient({ initialRecords }: Props) {
 
           {/* Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-3">
+            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-[#2C292E] bg-[#17161A] shadow-2xs">
+              {isDemo ? (
+                <>
+                  <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                  <span className="text-amber-400">Demo Records</span>
+                </>
+              ) : (
+                <>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-emerald-400">Supabase Connected</span>
+                </>
+              )}
+            </div>
+
             <button
               onClick={handleRefresh}
               disabled={isRefreshing}

@@ -11,7 +11,13 @@ export const metadata: Metadata = {
 };
 
 export default async function RyfAdminPage() {
-  const records = await getRyfRegistrations();
+  const result = await getRyfRegistrations();
 
-  return <RyfAdminDashboardClient initialRecords={records} />;
+  return (
+    <RyfAdminDashboardClient
+      initialRecords={result.data}
+      isDemo={result.isDemo}
+      dbError={result.error}
+    />
+  );
 }

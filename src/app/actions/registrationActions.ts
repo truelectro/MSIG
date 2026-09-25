@@ -116,9 +116,52 @@ export async function submitRegistrationAction(
   return await processRegistrationSubmission(payload);
 }
 
-export async function getRyfRegistrations(): Promise<RyfExportRecord[]> {
-  const stored = getAllStoredRegistrations();
+export async function getRyfRegistrations(): Promise<{
+  data: RyfExportRecord[];
+  isDemo: boolean;
+  error?: string;
+}> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+  if (supabaseUrl && supabaseAnonKey && !supabaseUrl.includes("your-project")) {
+    try {
+      const { createClient } = await import("@supabase/supabase-js");
+      const supabase = createClient(supabaseUrl, supabaseAnonKey);
+      const { data, error } = await supabase
+        .from("ride_your_flame_registrations")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        const mappedData: RyfExportRecord[] = data.map((r: any) => ({
+          id: r.id,
+          referenceCode: r.reference_code,
+          fullName: r.full_name,
+          email: r.email,
+          phone: r.phone,
+          dateOfBirth: r.date_of_birth,
+          categoryName: r.category_name,
+          startWave: r.start_wave,
+          emergencyContactName: r.emergency_contact_name,
+          emergencyContactPhone: r.emergency_contact_phone,
+          amount: Number(r.amount),
+          currency: r.currency || "GHS",
+          paymentStatus: r.payment_status || "confirmed",
+          createdAt: r.created_at,
+        }));
+
+        return {
+          data: mappedData,
+          isDemo: false,
+        };
+      }
+    } catch (err: unknown) {
+      console.warn("[RYF Admin] Supabase query note:", err);
+    }
+  }
+
+  const stored = getAllStoredRegistrations();
   const formattedStored: RyfExportRecord[] = stored.map((r) => ({
     id: r.id,
     referenceCode: r.referenceCode,
@@ -136,10 +179,7 @@ export async function getRyfRegistrations(): Promise<RyfExportRecord[]> {
     createdAt: r.createdAt,
   }));
 
-  // Combine live session records with sample roster for a realistic complete dashboard view
   const allRecords = [...formattedStored, ...sampleRyfRegistrations];
-
-  // Deduplicate by referenceCode if any overlap
   const seen = new Set<string>();
   const uniqueRecords: RyfExportRecord[] = [];
   for (const rec of allRecords) {
@@ -149,6 +189,9 @@ export async function getRyfRegistrations(): Promise<RyfExportRecord[]> {
     }
   }
 
-  return uniqueRecords;
+  return {
+    data: uniqueRecords,
+    isDemo: true,
+  };
 }
 

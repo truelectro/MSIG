@@ -90,6 +90,34 @@ export async function processRegistrationSubmission(
     idempotencyStore.set(data.idempotencyKey, record);
   }
 
+  // Persist directly to Supabase if configured
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (supabaseUrl && supabaseAnonKey && !supabaseUrl.includes("your-project")) {
+    try {
+      const { createClient } = await import("@supabase/supabase-js");
+      const supabase = createClient(supabaseUrl, supabaseAnonKey);
+      await supabase.from("ride_your_flame_registrations").insert({
+        reference_code: record.referenceCode,
+        full_name: record.participant.fullName,
+        email: record.participant.email,
+        phone: record.participant.phone,
+        date_of_birth: record.participant.dateOfBirth,
+        category_id: record.category.id,
+        category_name: record.category.title,
+        start_wave: record.participant.startWave || "Wave 1 (Standard)",
+        emergency_contact_name: record.participant.emergencyContactName,
+        emergency_contact_phone: record.participant.emergencyContactPhone,
+        amount: record.price.total,
+        currency: record.price.currency,
+        payment_status: "confirmed",
+        is_demo_record: false,
+      });
+    } catch (err) {
+      console.warn("[RYF Registration] Could not persist to Supabase:", err);
+    }
+  }
+
   return { success: true, record };
 }
 
