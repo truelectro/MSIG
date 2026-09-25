@@ -11,8 +11,8 @@ export function GssRegistrationSection({ isStandalone = false }: { isStandalone?
     whatsappNumber: "",
     campusId: "ug-legon",
     sessionSlot: "7:00 PM – 8:00 PM",
-    reserveBk1Kit: true,
-    reserveBreastExam: true,
+    reserveBk1Kit: false,
+    reserveBreastExam: false,
     anonymousQuestion: "",
   });
 
@@ -91,7 +91,6 @@ export function GssRegistrationSection({ isStandalone = false }: { isStandalone?
           </h3>
           <p className="text-sm text-[#574B51] font-gss-sans leading-relaxed">
             Your spot is confirmed for <strong>{selectedCampus.shortName}</strong> ({selectedCampus.dateDisplay}).
-            {formData.reserveBk1Kit && " A complimentary BK-1 Backup Kit is reserved in your name for pickup at check-in."}
           </p>
         </div>
       ) : (
@@ -185,38 +184,6 @@ export function GssRegistrationSection({ isStandalone = false }: { isStandalone?
               </div>
             </div>
 
-            {/* Inclusions Checkboxes */}
-            <div className="pt-4 space-y-4 border-t border-[#EADFD7]">
-              <label className="flex items-start gap-3 cursor-pointer group">
-                <input
-                  type="checkbox"
-                  checked={formData.reserveBk1Kit}
-                  onChange={(e) =>
-                    setFormData({ ...formData, reserveBk1Kit: e.target.checked })
-                  }
-                  className="mt-0.5 w-4 h-4 rounded text-[#662d91] focus:ring-[#662d91] accent-[#662d91]"
-                />
-                <span className="text-xs sm:text-sm font-gss-sans text-[#574B51]">
-                  <strong className="text-[#1A1416]">Reserve my free take-home BK-1 Emergency Backup Kit</strong>{" "}
-                  (sealed, discreet package with emergency contraception and cycle guide).
-                </span>
-              </label>
-
-              <label className="flex items-start gap-3 cursor-pointer group">
-                <input
-                  type="checkbox"
-                  checked={formData.reserveBreastExam}
-                  onChange={(e) =>
-                    setFormData({ ...formData, reserveBreastExam: e.target.checked })
-                  }
-                  className="mt-0.5 w-4 h-4 rounded text-[#662d91] focus:ring-[#662d91] accent-[#662d91]"
-                />
-                <span className="text-xs sm:text-sm font-gss-sans text-[#574B51]">
-                  <strong className="text-[#1A1416]">Book a private Pink October breast cancer screening slot</strong>{" "}
-                  (gentle exam by licensed MSI female midwives inside private wellness pods).
-                </span>
-              </label>
-            </div>
 
             {/* Anonymous Question */}
             <div className="space-y-2">

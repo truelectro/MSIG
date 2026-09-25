@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, ShieldCheck, Heart } from "lucide-react";
+import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { GssRegistrationSection } from "@/components/girls-safe-space/GssRegistrationSection";
 import { GirlsSafeSpaceLogo } from "@/components/events/EventLogos";
 
 export const metadata: Metadata = {
   title: "Register — Girls' Safe Space Campus Tour | MSI Ghana",
   description:
-    "Official registration for Girls' Safe Space at UG Legon. Reserve your free admission, complimentary BK-1 backup kit, and private Pink October breast screening slot.",
+    "Official registration for Girls' Safe Space at UG Legon. Reserve your free admission spot.",
 };
 
 export default function GirlSafeSpaceRegisterPage() {
@@ -53,14 +53,10 @@ export default function GirlSafeSpaceRegisterPage() {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-[#662d91] text-xs font-bold uppercase tracking-wider">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Free BK-1 Kit</span>
-            </span>
-            <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-pink-50 border border-pink-200 text-[#ec008c] text-xs font-bold uppercase tracking-wider">
-              <Heart className="w-3.5 h-3.5" />
-              <span>Free Breast Exam</span>
+          <div className="flex items-center">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-[#662d91] text-xs font-bold uppercase tracking-wider">
+              <span className="w-2 h-2 rounded-full bg-[#662d91]" />
+              <span>Free Admission</span>
             </span>
           </div>
         </div>

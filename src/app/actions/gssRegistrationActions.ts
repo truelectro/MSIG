@@ -121,8 +121,8 @@ export async function submitGssRegistration(
     phone_number: input.phoneNumber.trim(),
     stop: input.stop || "UG Legon",
     session_time: input.sessionTime || "7:00 PM – 8:00 PM",
-    reserve_bk1_kit: input.reserveBk1Kit ?? true,
-    reserve_breast_exam: input.reserveBreastExam ?? true,
+    reserve_bk1_kit: input.reserveBk1Kit ?? false,
+    reserve_breast_exam: input.reserveBreastExam ?? false,
     anonymous_question: input.anonymousQuestion?.trim() || null,
     created_at: new Date().toISOString(),
   };
