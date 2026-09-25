@@ -51,7 +51,8 @@ describe("Girls' Safe Space Configuration & Events Integration", () => {
       deleteGssRegistration,
     } = await import("@/app/actions/gssRegistrationActions");
 
-    const testName = "Test Attendee " + Date.now();
+    const randomSuffix = Math.random().toString(36).replace(/[^a-zA-Z]/g, "") || "Alpha";
+    const testName = "Test Attendee " + randomSuffix;
     const result = await submitGssRegistration({
       name: testName,
       phoneNumber: "0241234567",

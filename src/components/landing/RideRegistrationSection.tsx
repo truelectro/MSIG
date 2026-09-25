@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { CheckCircle2, ArrowRight, AlertCircle } from "lucide-react";
+import { validateGhanaPhoneNumber } from "@/lib/validations/gssRegistration";
 
 export function RideRegistrationSection() {
   const [formData, setFormData] = useState({
@@ -26,8 +27,28 @@ export function RideRegistrationSection() {
     e.preventDefault();
     setErrorMessage(null);
 
-    if (!formData.fullName.trim() || !formData.email.trim() || !formData.phone.trim()) {
-      setErrorMessage("Please complete all required fields (Name, Email, Phone/WhatsApp).");
+    const cleanName = formData.fullName.trim();
+    if (!cleanName || cleanName.length < 2) {
+      setErrorMessage("Please enter your full legal or preferred name (minimum 2 characters).");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      setErrorMessage("Please enter a valid email address (e.g. rider@example.com).");
+      return;
+    }
+
+    const phoneCheck = validateGhanaPhoneNumber(formData.phone);
+    if (!phoneCheck.isValid) {
+      setErrorMessage(
+        phoneCheck.error || "Please provide an operational phone or WhatsApp number."
+      );
+      return;
+    }
+
+    if (!formData.dateOfBirth) {
+      setErrorMessage("Please select your date of birth.");
       return;
     }
 

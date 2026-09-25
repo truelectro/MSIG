@@ -32,6 +32,7 @@ import {
   submitGssRegistration,
   deleteGssRegistration,
 } from "@/app/actions/gssRegistrationActions";
+import { validateGhanaPhoneNumber } from "@/lib/validations/gssRegistration";
 import { exportRegistrationsToExcel, exportRegistrationsToCsv } from "@/lib/exportExcel";
 import { GirlsSafeSpaceLogo } from "@/components/events/EventLogos";
 import { GssAdminLogin, GssAdminUser } from "./GssAdminLogin";
@@ -120,6 +121,7 @@ export function AdminDashboardClient({
   // Quick RSVP modal
   const [showAddModal, setShowAddModal] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [addModalError, setAddModalError] = useState<string | null>(null);
   const [addForm, setAddForm] = useState({
     name: "",
     phoneNumber: "",
@@ -163,11 +165,37 @@ export function AdminDashboardClient({
   // Add sample/test attendee
   const handleAddSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setAddModalError(null);
+
+    const trimmedName = addForm.name.trim();
+    if (!trimmedName || trimmedName.length < 2) {
+      setAddModalError("Attendee name must be at least 2 characters.");
+      return;
+    }
+
+    const phoneCheck = validateGhanaPhoneNumber(addForm.phoneNumber);
+    if (!phoneCheck.isValid) {
+      setAddModalError(
+        phoneCheck.error || "Please enter a valid Ghana phone number (e.g. 024 123 4567)."
+      );
+      return;
+    }
+
+    if (addForm.anonymousQuestion && addForm.anonymousQuestion.length > 500) {
+      setAddModalError("Question cannot exceed 500 characters.");
+      return;
+    }
+
     setIsAdding(true);
     try {
-      const res = await submitGssRegistration(addForm);
+      const res = await submitGssRegistration({
+        ...addForm,
+        name: trimmedName,
+        phoneNumber: phoneCheck.normalized || addForm.phoneNumber.trim(),
+      });
       if (res.success) {
         setShowAddModal(false);
+        setAddModalError(null);
         setAddForm({
           name: "",
           phoneNumber: "",
@@ -183,7 +211,7 @@ export function AdminDashboardClient({
           message: "Attendee added successfully to roster!",
         });
       } else {
-        alert(res.error || "Failed to add registration.");
+        setAddModalError(res.error || "Failed to add registration.");
       }
     } finally {
       setIsAdding(false);
@@ -350,7 +378,10 @@ export function AdminDashboardClient({
 
             {/* Quick Add RSVP */}
             <button
-              onClick={() => setShowAddModal(true)}
+              onClick={() => {
+                setAddModalError(null);
+                setShowAddModal(true);
+              }}
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-50 text-[#662d91] hover:bg-purple-100 border border-purple-200 text-xs font-bold uppercase tracking-wider transition-all"
             >
               <PlusCircle className="w-3.5 h-3.5" />
@@ -931,7 +962,17 @@ export function AdminDashboardClient({
               </button>
             </div>
 
-            <form onSubmit={handleAddSubmit} className="space-y-4">
+            {addModalError && (
+              <div
+                role="alert"
+                className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-start gap-2.5"
+              >
+                <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+                <span>{addModalError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleAddSubmit} noValidate className="space-y-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1416] mb-1">
                   Attendee Name *

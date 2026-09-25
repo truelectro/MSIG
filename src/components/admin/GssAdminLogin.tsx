@@ -32,6 +32,25 @@ export function GssAdminLogin({ onLoginSuccess }: Props) {
     const cleanEmail = email.trim().toLowerCase();
     const cleanPassword = password;
 
+    if (!cleanEmail) {
+      setError("Please enter your coordinator admin email.");
+      setIsLoading(false);
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanEmail)) {
+      setError("Please enter a valid email address (e.g. name@emaildomain.com).");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!cleanPassword || cleanPassword.length < 6) {
+      setError("Password must be at least 6 characters.");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       // 1. Check designated GSS Administrator credentials
       const isDesignatedAdmin =

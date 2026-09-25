@@ -3,6 +3,10 @@
 import { createClient } from "@supabase/supabase-js";
 import fs from "fs";
 import path from "path";
+import {
+  gssRegistrationSchema,
+  validateGhanaPhoneNumber,
+} from "@/lib/validations/gssRegistration";
 
 export interface GssRegistrationInput {
   name: string;
@@ -107,23 +111,28 @@ export async function submitGssRegistration(
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  if (!input.name || !input.name.trim()) {
-    return { success: false, error: "Please provide your name or nickname." };
+  // Validate input using strong Zod schema
+  const parsed = gssRegistrationSchema.safeParse(input);
+  if (!parsed.success) {
+    const errorMsg =
+      parsed.error.issues[0]?.message ||
+      "Invalid registration details. Please check your information.";
+    return { success: false, error: errorMsg };
   }
 
-  if (!input.phoneNumber || !input.phoneNumber.trim()) {
-    return { success: false, error: "Please provide your WhatsApp phone number." };
-  }
+  // Normalize phone number to standard Ghana national format
+  const phoneCheck = validateGhanaPhoneNumber(parsed.data.phoneNumber);
+  const normalizedPhone = phoneCheck.normalized || parsed.data.phoneNumber.trim();
 
   const record: GssRegistrationRecord = {
     id: `gss-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-    name: input.name.trim(),
-    phone_number: input.phoneNumber.trim(),
-    stop: input.stop || "UPSA",
-    session_time: input.sessionTime || "7:00 PM – 8:00 PM",
-    reserve_bk1_kit: input.reserveBk1Kit ?? false,
-    reserve_breast_exam: input.reserveBreastExam ?? false,
-    anonymous_question: input.anonymousQuestion?.trim() || null,
+    name: parsed.data.name.trim(),
+    phone_number: normalizedPhone,
+    stop: parsed.data.stop || "UPSA",
+    session_time: parsed.data.sessionTime || "7:00 PM – 8:00 PM",
+    reserve_bk1_kit: parsed.data.reserveBk1Kit ?? false,
+    reserve_breast_exam: parsed.data.reserveBreastExam ?? false,
+    anonymous_question: parsed.data.anonymousQuestion?.trim() || null,
     created_at: new Date().toISOString(),
   };
 
