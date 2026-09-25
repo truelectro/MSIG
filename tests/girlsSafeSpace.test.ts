@@ -11,15 +11,13 @@ describe("Girls' Safe Space Configuration & Events Integration", () => {
     expect(gssEvent?.status).toBe("active");
   });
 
-  it("should have campus stops covering key Ghanaian universities", () => {
-    expect(gssCampusStops.length).toBeGreaterThanOrEqual(6);
-    const stopIds = gssCampusStops.map((s) => s.id);
-    expect(stopIds).toContain("ug-legon");
-    expect(stopIds).toContain("knust-kumasi");
-    expect(stopIds).toContain("upsa-accra");
-    expect(stopIds).toContain("ucc-capecoast");
-    expect(stopIds).toContain("ttu-takoradi");
-    expect(stopIds).toContain("uds-tamale");
+  it("should have the UG Legon event configured for September 25", () => {
+    expect(gssCampusStops.length).toBe(1);
+    const stop = gssCampusStops[0];
+    expect(stop.id).toBe("ug-legon");
+    expect(stop.shortName).toBe("UG Legon");
+    expect(stop.dateDisplay).toContain("September 25");
+    expect(stop.timeDisplay).toBe("7:00 PM – 8:00 PM");
   });
 
   it("should have the 6 core SRH topic modules defined with takeaways", () => {

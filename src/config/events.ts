@@ -33,8 +33,8 @@ export const msigEvents: MsigEventItem[] = [
     status: "active",
     discipline: "Youth Wellness, SRH & Sisterhood",
     category: "Culture",
-    dateDisplay: "Oct 23 – Dec 5, 2026",
-    locationDisplay: "UG Legon, KNUST, UPSA, UCC, TTU, UDS & Accra",
+    dateDisplay: "September 25, 2026",
+    locationDisplay: "UG Legon (Athletic Oval), Accra",
     summary:
       "A welcoming lifestyle sanctuary bringing reproductive healthcare into a trendy, judgment-free space for young Ghanaian women. Cycle syncing, modern contraception literacy, complimentary take-home BK-1 kits, and free private Pink October clinical breast screenings.",
     highlights: [

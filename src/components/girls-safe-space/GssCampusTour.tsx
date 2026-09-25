@@ -33,7 +33,7 @@ export function GssCampusTour() {
               {/* Date Column */}
               <div className="md:w-56 shrink-0">
                 <span className="text-sm font-mono font-bold text-[#1A1416] block">
-                  {stop.dateDisplay.split(",")[1]?.trim() || stop.dateDisplay}
+                  {stop.dateDisplay}
                 </span>
                 <span className="text-xs font-gss-sans text-[#8A7980]">
                   {stop.timeDisplay}

@@ -1,15 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight, Check, AlertCircle } from "lucide-react";
 import { gssCampusStops } from "@/config/girlsSafeSpaceConfig";
+import { submitGssRegistration } from "@/app/actions/gssRegistrationActions";
 
 export function GssRegistrationSection() {
   const [formData, setFormData] = useState({
     fullName: "",
     whatsappNumber: "",
     campusId: "ug-legon",
-    sessionSlot: "morning",
+    sessionSlot: "7:00 PM – 8:00 PM",
     reserveBk1Kit: true,
     reserveBreastExam: true,
     anonymousQuestion: "",
@@ -17,17 +18,37 @@ export function GssRegistrationSection() {
 
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const selectedCampus =
     gssCampusStops.find((c) => c.id === formData.campusId) || gssCampusStops[0];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setSubmitted(true);
+    setErrorMessage(null);
+
+    try {
+      const result = await submitGssRegistration({
+        name: formData.fullName,
+        phoneNumber: formData.whatsappNumber,
+        stop: selectedCampus.shortName,
+        sessionTime: formData.sessionSlot,
+        reserveBk1Kit: formData.reserveBk1Kit,
+        reserveBreastExam: formData.reserveBreastExam,
+        anonymousQuestion: formData.anonymousQuestion,
+      });
+
+      if (result.success) {
+        setSubmitted(true);
+      } else {
+        setErrorMessage(result.error || "Failed to submit registration. Please try again.");
+      }
+    } catch {
+      setErrorMessage("An unexpected network error occurred. Please try again.");
+    } finally {
       setIsSubmitting(false);
-    }, 600);
+    }
   };
 
   return (
@@ -150,7 +171,7 @@ export function GssRegistrationSection() {
                 >
                   {gssCampusStops.map((stop) => (
                     <option key={stop.id} value={stop.id}>
-                      {stop.shortName} — {stop.dateDisplay}
+                      {stop.shortName} — {stop.dateDisplay} ({stop.timeDisplay})
                     </option>
                   ))}
                 </select>
@@ -162,7 +183,7 @@ export function GssRegistrationSection() {
                   htmlFor="sessionSlot"
                   className="block text-xs font-gss-sans font-bold uppercase tracking-wider text-[#1A1416]"
                 >
-                  Session Time
+                  Session Time *
                 </label>
                 <select
                   id="sessionSlot"
@@ -172,8 +193,7 @@ export function GssRegistrationSection() {
                   }
                   className="w-full pb-3 pt-1 border-b-2 border-[#EADFD7] focus:border-[#662d91] bg-transparent text-sm text-[#1A1416] focus:outline-none transition-colors cursor-pointer"
                 >
-                  <option value="morning">Morning Session (10:00 AM – 1:00 PM)</option>
-                  <option value="afternoon">Afternoon Session (1:30 PM – 4:30 PM)</option>
+                  <option value="7:00 PM – 8:00 PM">7:00 PM – 8:00 PM (UG Legon)</option>
                 </select>
               </div>
             </div>
@@ -230,6 +250,14 @@ export function GssRegistrationSection() {
                 className="w-full pb-3 pt-1 border-b-2 border-[#EADFD7] focus:border-[#662d91] bg-transparent text-sm text-[#1A1416] placeholder-[#A3979D] focus:outline-none transition-colors"
               />
             </div>
+
+            {/* Error Message */}
+            {errorMessage && (
+              <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm font-gss-sans flex items-start gap-3">
+                <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                <span>{errorMessage}</span>
+              </div>
+            )}
 
             {/* Action Button */}
             <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

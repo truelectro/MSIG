@@ -44,7 +44,7 @@ export function GssHero() {
             </div>
 
             <div className="pt-6 border-t border-[#EADFD7] w-full flex items-center justify-between text-xs font-gss-sans text-[#8A7980]">
-              <span>Campus Tour • UG Legon, KNUST, UPSA, UCC, TTU, UDS</span>
+              <span>Campus Tour • UG Legon • September 25, 7:00 PM – 8:00 PM</span>
               <span className="font-semibold text-[#662d91] inline-flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#ec008c]" aria-hidden="true" />
                 <span>Free BK-1 Kit Included</span>
