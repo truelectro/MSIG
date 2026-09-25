@@ -10,7 +10,7 @@ import { GssHeader } from "../girls-safe-space/GssHeader";
 
 export function Header() {
   const pathname = usePathname();
-  if (pathname.startsWith("/admin")) {
+  if (pathname.includes("/admin")) {
     return null;
   }
   if (pathname.startsWith("/girl-safe-space") || pathname.startsWith("/girls-safe-space")) {

@@ -92,8 +92,8 @@ export function GssFooter() {
             <Link href="/ride-your-flame" className="hover:text-white transition-colors">
               Ride Your Flame
             </Link>
-            <Link href="/admin" className="text-[#d8b4fe] hover:text-white transition-colors font-semibold">
-              Admin Portal
+            <Link href="/girl-safe-space/admin" className="text-[#d8b4fe] hover:text-white transition-colors font-semibold">
+              GSS Coordinator Portal
             </Link>
           </div>
         </div>

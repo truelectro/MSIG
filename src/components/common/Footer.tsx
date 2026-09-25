@@ -11,7 +11,7 @@ import { GssFooter } from "../girls-safe-space/GssFooter";
 
 export function Footer() {
   const pathname = usePathname();
-  if (pathname.startsWith("/admin")) {
+  if (pathname.includes("/admin")) {
     return null;
   }
   if (pathname.startsWith("/girl-safe-space") || pathname.startsWith("/girls-safe-space")) {
@@ -180,9 +180,13 @@ function DefaultFooter() {
           {/* Bottom attribution & demo disclaimer */}
           <div className="mt-12 pt-6 border-t border-rule flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-charcoal-subtle">
             <p>© 2026 MSI Ghana. All rights reserved.</p>
-            <p className="text-center sm:text-right">
-              MSIG Events Platform • Official Ghana Event Series.
-            </p>
+            <div className="flex items-center gap-4 text-center sm:text-right">
+              <span>MSIG Events Platform • Official Ghana Event Series.</span>
+              <span>•</span>
+              <Link href="/ride-your-flame/admin" className="text-gold-bright hover:underline font-semibold">
+                Race Director Portal
+              </Link>
+            </div>
           </div>
         </div>
       </footer>

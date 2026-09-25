@@ -98,3 +98,12 @@ export async function getRegistrationByIdOrRef(
 ): Promise<RegistrationRecord | null> {
   return registrationStore.get(identifier) || null;
 }
+
+export function getAllStoredRegistrations(): RegistrationRecord[] {
+  // Deduplicate since both id and referenceCode are keys in the map
+  const uniqueRecords = new Map<string, RegistrationRecord>();
+  for (const record of registrationStore.values()) {
+    uniqueRecords.set(record.id, record);
+  }
+  return Array.from(uniqueRecords.values());
+}
