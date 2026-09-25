@@ -32,18 +32,18 @@ BEGIN
     END IF;
 END $$;
 
--- Allow authenticated users / dashboard administrators to view registrations
+-- Allow anon and authenticated users / dashboard administrators to view registrations
 DO $$
 BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM pg_policies 
         WHERE tablename = 'girls_safe_space_registrations' 
-        AND policyname = 'Allow authenticated users to read registrations'
+        AND policyname = 'Allow reading registrations'
     ) THEN
-        CREATE POLICY "Allow authenticated users to read registrations" 
+        CREATE POLICY "Allow reading registrations" 
         ON public.girls_safe_space_registrations 
         FOR SELECT 
-        TO authenticated
+        TO anon, authenticated
         USING (true);
     END IF;
 END $$;
