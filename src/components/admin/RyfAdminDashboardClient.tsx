@@ -42,7 +42,9 @@ export function RyfAdminDashboardClient({
   isDemo: initialIsDemo = true,
   dbError: initialDbError,
 }: Props) {
-  const [records, setRecords] = useState<RyfExportRecord[]>(initialRecords);
+  const [records, setRecords] = useState<RyfExportRecord[]>(
+    initialRecords.filter((r) => !r.id.startsWith("sample-"))
+  );
   const [isDemo, setIsDemo] = useState(initialIsDemo);
   const [dbError, setDbError] = useState<string | undefined>(initialDbError);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -165,17 +167,8 @@ export function RyfAdminDashboardClient({
           {/* Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-[#2C292E] bg-[#17161A] shadow-2xs">
-              {isDemo ? (
-                <>
-                  <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                  <span className="text-amber-400">Demo Records</span>
-                </>
-              ) : (
-                <>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-emerald-400">Supabase Connected</span>
-                </>
-              )}
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span className="text-emerald-400">Live Roster ({records.length})</span>
             </div>
 
             <button

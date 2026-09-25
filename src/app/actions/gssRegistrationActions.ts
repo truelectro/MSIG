@@ -157,64 +157,6 @@ export async function submitGssRegistration(
   return { success: true, record };
 }
 
-const mockGssRegistrations: GssRegistrationRecord[] = [
-  {
-    id: "demo-gss-1",
-    name: "Akosua Mensah",
-    phone_number: "+233 24 412 8891",
-    stop: "UG Legon",
-    session_time: "7:00 PM – 8:00 PM",
-    reserve_bk1_kit: true,
-    reserve_breast_exam: true,
-    anonymous_question: "Can I take emergency contraception if I am already taking monthly birth control pills?",
-    created_at: "2026-09-25T08:30:00Z",
-  },
-  {
-    id: "demo-gss-2",
-    name: "Efua Boateng",
-    phone_number: "+233 50 198 3342",
-    stop: "UG Legon",
-    session_time: "7:00 PM – 8:00 PM",
-    reserve_bk1_kit: true,
-    reserve_breast_exam: true,
-    anonymous_question: "Are there long-term side effects from getting the 3-year contraceptive implant?",
-    created_at: "2026-09-25T09:15:00Z",
-  },
-  {
-    id: "demo-gss-3",
-    name: "Jessica Osei-Tutu",
-    phone_number: "+233 55 872 9014",
-    stop: "UG Legon",
-    session_time: "7:00 PM – 8:00 PM",
-    reserve_bk1_kit: true,
-    reserve_breast_exam: false,
-    anonymous_question: null,
-    created_at: "2026-09-25T09:45:00Z",
-  },
-  {
-    id: "demo-gss-4",
-    name: "Nana Ama Serwaa",
-    phone_number: "+233 27 655 4109",
-    stop: "UG Legon",
-    session_time: "7:00 PM – 8:00 PM",
-    reserve_bk1_kit: true,
-    reserve_breast_exam: true,
-    anonymous_question: "How do I know if my severe period cramps are related to PCOS or endometriosis?",
-    created_at: "2026-09-25T10:05:00Z",
-  },
-  {
-    id: "demo-gss-5",
-    name: "Khadija Iddrisu",
-    phone_number: "+233 20 771 6250",
-    stop: "UG Legon",
-    session_time: "7:00 PM – 8:00 PM",
-    reserve_bk1_kit: false,
-    reserve_breast_exam: true,
-    anonymous_question: "What is the recommended age to start annual clinical breast exams?",
-    created_at: "2026-09-25T10:20:00Z",
-  },
-];
-
 export async function getGssRegistrations(): Promise<{
   data: GssRegistrationRecord[];
   isDemo: boolean;
@@ -251,20 +193,11 @@ export async function getGssRegistrations(): Promise<{
     }
   }
 
-  // If there are real submitted applications, return ONLY them.
-  // Never show sample demo records alongside real attendee applications.
-  if (localRecords.length > 0) {
-    return {
-      data: localRecords,
-      isDemo: false,
-    };
-  }
-
-  // Only if no applications have been submitted at all, return the sample entries
+  // Never return demo records when there is no entry.
+  // Return authentic registrations (or empty array if none exist).
   return {
-    data: mockGssRegistrations,
-    isDemo: true,
-    error: "No live registrations recorded yet.",
+    data: localRecords,
+    isDemo: false,
   };
 }
 

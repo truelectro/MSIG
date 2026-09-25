@@ -179,19 +179,9 @@ export async function getRyfRegistrations(): Promise<{
     createdAt: r.createdAt,
   }));
 
-  const allRecords = [...formattedStored, ...sampleRyfRegistrations];
-  const seen = new Set<string>();
-  const uniqueRecords: RyfExportRecord[] = [];
-  for (const rec of allRecords) {
-    if (!seen.has(rec.referenceCode)) {
-      seen.add(rec.referenceCode);
-      uniqueRecords.push(rec);
-    }
-  }
-
   return {
-    data: uniqueRecords,
-    isDemo: true,
+    data: formattedStored,
+    isDemo: false,
   };
 }
 

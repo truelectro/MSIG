@@ -45,8 +45,10 @@ export function AdminDashboardClient({
   isDemo: initialIsDemo,
   dbError: initialDbError,
 }: Props) {
-  const [records, setRecords] = useState<GssRegistrationRecord[]>(initialRecords);
-  const [isDemo, setIsDemo] = useState(initialIsDemo);
+  const [records, setRecords] = useState<GssRegistrationRecord[]>(
+    initialRecords.filter((r) => !r.id.startsWith("demo-"))
+  );
+  const [isDemo, setIsDemo] = useState(false);
   const [dbError, setDbError] = useState<string | undefined>(initialDbError);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,7 +57,6 @@ export function AdminDashboardClient({
 
   // Selected attendee for inspector modal
   const [selectedAttendee, setSelectedAttendee] = useState<GssRegistrationRecord | null>(null);
-  const [bannerDismissed, setBannerDismissed] = useState(false);
 
   // Load any registrations that were submitted in this browser
   React.useEffect(() => {
@@ -65,10 +66,9 @@ export function AdminDashboardClient({
         const browserSubs = JSON.parse(raw) as GssRegistrationRecord[];
         if (Array.isArray(browserSubs) && browserSubs.length > 0) {
           setRecords((current) => {
-            // When real submissions exist, purge old sample demo entries
             const nonDemoCurrent = current.filter((r) => !r.id.startsWith("demo-"));
             const currentIds = new Set(nonDemoCurrent.map((r) => r.id));
-            const newEntries = browserSubs.filter((b) => !currentIds.has(b.id));
+            const newEntries = browserSubs.filter((b) => !b.id.startsWith("demo-") && !currentIds.has(b.id));
             return [...newEntries, ...nonDemoCurrent];
           });
         }
@@ -102,12 +102,13 @@ export function AdminDashboardClient({
     setIsRefreshing(true);
     try {
       const res = await getGssRegistrations();
-      setRecords(res.data);
-      setIsDemo(res.isDemo);
+      const realData = res.data.filter((r) => !r.id.startsWith("demo-"));
+      setRecords(realData);
+      setIsDemo(false);
       setDbError(res.error);
       setBannerNotice({
         type: "success",
-        message: `Roster refreshed. Loaded ${res.data.length} attendee record(s).`,
+        message: `Roster refreshed. Loaded ${realData.length} attendee record(s).`,
       });
     } catch {
       setBannerNotice({
@@ -179,28 +180,10 @@ export function AdminDashboardClient({
     }
   };
 
-  // Check if live attendee applications exist
-  const hasLiveRecords = useMemo(() => {
-    return records.some((r) => !r.id.startsWith("demo-"));
-  }, [records]);
-
-  // When live applications exist, hide old sample demo records completely
+  // Strictly authentic attendee registrations (never demo data)
   const effectiveRecords = useMemo(() => {
-    if (hasLiveRecords) {
-      return records.filter((r) => !r.id.startsWith("demo-"));
-    }
-    return records;
-  }, [records, hasLiveRecords]);
-
-  // Manual purge of demo records
-  const handleClearDemoData = () => {
-    setRecords((prev) => prev.filter((r) => !r.id.startsWith("demo-")));
-    setBannerNotice({
-      type: "info",
-      message: "Sample demo records cleared from roster.",
-    });
-    setTimeout(() => setBannerNotice(null), 3000);
-  };
+    return records.filter((r) => !r.id.startsWith("demo-"));
+  }, [records]);
 
   // Filtered records based on active attendee applications
   const filteredRecords = useMemo(() => {
@@ -293,14 +276,8 @@ export function AdminDashboardClient({
 
           {/* Status Badge & Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="hidden md:flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold border bg-white shadow-2xs">
-              {!isDemo ? (
-                <span className="text-emerald-700">Supabase Connected</span>
-              ) : hasLiveRecords ? (
-                <span className="text-emerald-700">Live Roster Active ({effectiveRecords.length})</span>
-              ) : (
-                <span className="text-amber-700">Demo Records Mode</span>
-              )}
+            <div className="hidden md:flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold border border-[#EADFD7] bg-white shadow-2xs">
+              <span className="text-emerald-700">Live Roster ({effectiveRecords.length})</span>
             </div>
 
             <button
@@ -352,41 +329,6 @@ export function AdminDashboardClient({
             >
               <X className="w-4 h-4" />
             </button>
-          </div>
-        )}
-
-        {/* Database notification banner: only shown if no live applications exist yet and not dismissed */}
-        {!hasLiveRecords && isDemo && !bannerDismissed && (
-          <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200 text-amber-900 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
-            <div className="flex items-start gap-3">
-              <Sparkles className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-              <div className="text-xs sm:text-sm">
-                <p className="font-bold text-amber-950">
-                  Viewing in Demo Mode with Ghanaian Campus Sample Data
-                </p>
-                <p className="text-amber-800 mt-0.5">
-                  To connect live attendee submissions to Supabase, run the SQL script in your Supabase SQL editor.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <a
-                href="https://supabase.com/dashboard/project/qrfoifqbcgojvpwtlpon/sql/new"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold uppercase tracking-wider transition-all"
-              >
-                <span>Open Supabase SQL Editor</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-              <button
-                onClick={() => setBannerDismissed(true)}
-                className="p-1.5 text-amber-700 hover:text-amber-950 rounded-lg hover:bg-amber-100 transition-colors"
-                title="Dismiss banner"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
           </div>
         )}
 
