@@ -133,7 +133,7 @@ export function GssAdminLogin({ onLoginSuccess }: Props) {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="hillary.sackey@ogilvy.africa"
+                  placeholder="name@emaildomain.com"
                   required
                   autoComplete="email"
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#EADFD7] bg-[#FAF8F5] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#662d91] focus:border-transparent text-sm text-[#1A1416] transition-all"
