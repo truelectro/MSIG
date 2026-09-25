@@ -32,6 +32,7 @@ import {
   deleteGssRegistration,
 } from "@/app/actions/gssRegistrationActions";
 import { exportRegistrationsToExcel, exportRegistrationsToCsv } from "@/lib/exportExcel";
+import { GirlsSafeSpaceLogo } from "@/components/events/EventLogos";
 
 interface Props {
   initialRecords: GssRegistrationRecord[];
@@ -205,25 +206,31 @@ export function AdminDashboardClient({
           <div className="flex items-center gap-4">
             <Link
               href="/girl-safe-space"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#662d91] hover:text-[#522277] transition-colors p-2 rounded-lg hover:bg-[#FAF8F5]"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#662d91] hover:text-[#522277] transition-colors py-2 px-3 rounded-xl hover:bg-[#FAF8F5] border border-transparent hover:border-[#EADFD7]"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">Back to Event</span>
+              <span className="hidden sm:inline">Back to Girls&apos; Safe Space</span>
             </Link>
 
-            <div className="h-5 w-px bg-[#EADFD7] hidden sm:block" />
+            <div className="h-6 w-px bg-[#EADFD7] hidden sm:block" />
 
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#ec008c]" />
-                <h1 className="text-base sm:text-lg font-black tracking-tight text-[#1A1416]">
-                  Girls&apos; Safe Space
-                  <span className="text-[#662d91] ml-1.5 font-normal">Admin Dashboard</span>
-                </h1>
+            <div className="flex items-center gap-3">
+              <Link href="/girl-safe-space" aria-label="Girls' Safe Space Home">
+                <GirlsSafeSpaceLogo size="sm" className="h-8 sm:h-9 w-auto" />
+              </Link>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-sm sm:text-base font-black tracking-tight text-[#1A1416]">
+                    GSS Attendee Roster
+                    <span className="text-[#662d91] ml-1.5 font-normal text-xs sm:text-sm">
+                      • Coordinator Portal
+                    </span>
+                  </h1>
+                </div>
+                <p className="text-[11px] text-[#8A7980] hidden sm:block">
+                  MSI Ghana • UG Legon Campus Event • September 25, 2026
+                </p>
               </div>
-              <p className="text-xs text-[#8A7980] hidden sm:block">
-                MSI Ghana • UG Legon Campus Event Attendee Management
-              </p>
             </div>
           </div>
 
@@ -952,6 +959,25 @@ export function AdminDashboardClient({
           </div>
         </div>
       )}
+
+      {/* Dedicated GSS Admin Footer */}
+      <footer className="mt-16 pt-8 border-t border-[#EADFD7] text-xs text-[#8A7980] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#ec008c]" />
+          <span>Girls&apos; Safe Space • MSI Ghana Reproductive Health &amp; Youth Initiatives</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <Link href="/girl-safe-space" className="hover:text-[#662d91] font-semibold transition-colors">
+            Event Homepage
+          </Link>
+          <span>•</span>
+          <Link href="/girl-safe-space#register" className="hover:text-[#662d91] font-semibold transition-colors">
+            Public RSVP Form
+          </Link>
+          <span>•</span>
+          <span>Confidential Hotline: 0800 20 8585</span>
+        </div>
+      </footer>
     </div>
   );
 }

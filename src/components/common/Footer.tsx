@@ -11,6 +11,9 @@ import { GssFooter } from "../girls-safe-space/GssFooter";
 
 export function Footer() {
   const pathname = usePathname();
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
   if (pathname.startsWith("/girl-safe-space") || pathname.startsWith("/girls-safe-space")) {
     return <GssFooter />;
   }
