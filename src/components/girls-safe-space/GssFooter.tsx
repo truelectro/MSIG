@@ -43,7 +43,7 @@ export function GssFooter() {
               </li>
               <li>
                 <Link href="/" className="hover:text-white transition-colors inline-flex items-center gap-1">
-                  <span>All MSIG Events</span>
+                  <span>Choices Ghana</span>
                   <ArrowUpRight className="w-3 h-3" />
                 </Link>
               </li>
@@ -72,7 +72,7 @@ export function GssFooter() {
           <p>© 2026 MSI Ghana. Girls&apos; Safe Space.</p>
           <div className="flex items-center gap-6">
             <Link href="/" className="hover:text-white transition-colors">
-              MSIG Events Platform
+              Choices Ghana
             </Link>
             <Link href="/ride-your-flame" className="hover:text-white transition-colors">
               Ride Your Flame

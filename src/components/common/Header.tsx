@@ -40,9 +40,8 @@ function DefaultHeader() {
 
   const navLinks = isEventsHub
     ? [
-        { href: "/", label: "All Events" },
+        { href: "/", label: "Choices Ghana" },
         { href: "/girl-safe-space", label: "Girls' Safe Space (Free)" },
-        { href: "/ride-your-flame", label: "Ride Your Flame (Active)" },
       ]
     : [
         { href: "/ride-your-flame#about", label: "About" },
@@ -66,7 +65,7 @@ function DefaultHeader() {
                 className="hidden sm:inline-flex items-center gap-1 text-[11px] font-athletic font-bold uppercase tracking-wider text-charcoal-muted hover:text-gold-600 dark:hover:text-gold-400 transition-colors"
               >
                 <ArrowLeft className="w-3 h-3" aria-hidden="true" />
-                <span>MSIG Events</span>
+                <span>Choices Ghana</span>
               </Link>
             </div>
           )}
@@ -165,7 +164,7 @@ function DefaultHeader() {
                   className="text-center text-xs font-athletic uppercase tracking-wider text-charcoal-muted hover:text-gold-600 dark:hover:text-gold-400 py-1 transition-colors flex items-center justify-center gap-1.5"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
-                  <span>All MSIG Events Hub</span>
+                  <span>Choices Ghana Hub</span>
                 </Link>
               </div>
             )}

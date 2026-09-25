@@ -181,7 +181,7 @@ function DefaultFooter() {
           <div className="mt-12 pt-6 border-t border-rule flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-charcoal-subtle">
             <p>© 2026 MSI Ghana. All rights reserved.</p>
             <div className="flex items-center gap-4 text-center sm:text-right">
-              <span>MSIG Events Platform • Official Ghana Event Series.</span>
+              <span>Choices Ghana • Official MSI Ghana Initiative.</span>
               <span>•</span>
               <Link href="/ride-your-flame/admin" className="text-gold-bright hover:underline font-semibold">
                 Race Director Portal

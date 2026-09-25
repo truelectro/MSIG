@@ -107,14 +107,14 @@ export function MsigEventsWordmark({
       <div className="flex flex-col">
         <div className="flex items-center gap-1.5 leading-none">
           <span className="font-athletic text-lg sm:text-xl font-black uppercase text-charcoal tracking-wider transition-colors">
-            MSIG
+            CHOICES
           </span>
           <span className="font-athletic text-lg sm:text-xl font-black uppercase text-gold-400 tracking-wider">
-            EVENTS
+            GHANA
           </span>
         </div>
         <span className="text-[9px] font-athletic font-bold uppercase tracking-[0.2em] text-charcoal-subtle leading-none mt-0.5">
-          Ghana Event Series
+          MSI Ghana Series
         </span>
       </div>
     </div>
@@ -125,7 +125,7 @@ export function MsigEventsWordmark({
       <Link
         href={href}
         className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 rounded-sm inline-flex items-center"
-        aria-label="MSIG Events Ghana — Return to events hub"
+        aria-label="Choices Ghana — Return to events hub"
       >
         {content}
       </Link>

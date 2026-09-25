@@ -13,11 +13,11 @@ export function MsigEventsPage() {
               MSI Ghana Series
             </span>
             <h1 className="text-3xl sm:text-5xl font-athletic font-black uppercase text-charcoal tracking-tight mt-1">
-              MSIG Events
+              Choices Ghana
             </h1>
           </div>
           <p className="text-xs sm:text-sm text-charcoal-subtle max-w-md sm:text-right">
-            Active flagship events. Select an event to explore details and register.
+            Active flagship initiatives. Select an event to explore details and register.
           </p>
         </div>
 

@@ -6,7 +6,7 @@ import { FaqAccordion } from "@/components/landing/FaqAccordion";
 import { eventConfig } from "@/config/event";
 
 export const metadata: Metadata = {
-  title: `${eventConfig.eventName} — The Aburi Mountain Fondo 2026 | MSIG Events`,
+  title: `${eventConfig.eventName} — The Aburi Mountain Fondo 2026 | Choices Ghana`,
   description:
     "An iconic 115 KM pure mountain road cycling fondo ascending the Akuapem Ridge in Ghana. October 17, 2026. Raising awareness for youth sexual and reproductive health.",
 };

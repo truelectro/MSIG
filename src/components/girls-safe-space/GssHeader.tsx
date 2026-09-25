@@ -104,7 +104,7 @@ export function GssHeader() {
                 href="/"
                 className="text-center text-xs text-[#8A7980] hover:text-[#662d91]"
               >
-                Back to All MSIG Events
+                Back to Choices Ghana
               </Link>
             </div>
           </nav>
