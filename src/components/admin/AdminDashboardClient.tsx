@@ -55,6 +55,7 @@ export function AdminDashboardClient({
 
   // Selected attendee for inspector modal
   const [selectedAttendee, setSelectedAttendee] = useState<GssRegistrationRecord | null>(null);
+  const [bannerDismissed, setBannerDismissed] = useState(false);
 
   // Load any registrations that were submitted in this browser
   React.useEffect(() => {
@@ -64,12 +65,11 @@ export function AdminDashboardClient({
         const browserSubs = JSON.parse(raw) as GssRegistrationRecord[];
         if (Array.isArray(browserSubs) && browserSubs.length > 0) {
           setRecords((current) => {
-            const currentIds = new Set(current.map((r) => r.id));
+            // When real submissions exist, purge old sample demo entries
+            const nonDemoCurrent = current.filter((r) => !r.id.startsWith("demo-"));
+            const currentIds = new Set(nonDemoCurrent.map((r) => r.id));
             const newEntries = browserSubs.filter((b) => !currentIds.has(b.id));
-            if (newEntries.length > 0) {
-              return [...newEntries, ...current];
-            }
-            return current;
+            return [...newEntries, ...nonDemoCurrent];
           });
         }
       }
@@ -179,9 +179,32 @@ export function AdminDashboardClient({
     }
   };
 
-  // Filtered records
+  // Check if live attendee applications exist
+  const hasLiveRecords = useMemo(() => {
+    return records.some((r) => !r.id.startsWith("demo-"));
+  }, [records]);
+
+  // When live applications exist, hide old sample demo records completely
+  const effectiveRecords = useMemo(() => {
+    if (hasLiveRecords) {
+      return records.filter((r) => !r.id.startsWith("demo-"));
+    }
+    return records;
+  }, [records, hasLiveRecords]);
+
+  // Manual purge of demo records
+  const handleClearDemoData = () => {
+    setRecords((prev) => prev.filter((r) => !r.id.startsWith("demo-")));
+    setBannerNotice({
+      type: "info",
+      message: "Sample demo records cleared from roster.",
+    });
+    setTimeout(() => setBannerNotice(null), 3000);
+  };
+
+  // Filtered records based on active attendee applications
   const filteredRecords = useMemo(() => {
-    return records.filter((r) => {
+    return effectiveRecords.filter((r) => {
       const query = searchQuery.toLowerCase().trim();
       const matchesQuery =
         !query ||
@@ -202,16 +225,16 @@ export function AdminDashboardClient({
 
       return matchesQuery && matchesKit && matchesExam;
     });
-  }, [records, searchQuery, filterKit, filterExam]);
+  }, [effectiveRecords, searchQuery, filterKit, filterExam]);
 
-  // Aggregate statistics
+  // Aggregate statistics over active attendee applications
   const stats = useMemo(() => {
-    const total = records.length;
-    const bk1Count = records.filter((r) => r.reserve_bk1_kit).length;
-    const examCount = records.filter((r) => r.reserve_breast_exam).length;
-    const questionsCount = records.filter((r) => r.anonymous_question && r.anonymous_question.trim().length > 0).length;
+    const total = effectiveRecords.length;
+    const bk1Count = effectiveRecords.filter((r) => r.reserve_bk1_kit).length;
+    const examCount = effectiveRecords.filter((r) => r.reserve_breast_exam).length;
+    const questionsCount = effectiveRecords.filter((r) => r.anonymous_question && r.anonymous_question.trim().length > 0).length;
     return { total, bk1Count, examCount, questionsCount };
-  }, [records]);
+  }, [effectiveRecords]);
 
   // Export handlers
   const handleExportExcel = () => {
@@ -271,15 +294,20 @@ export function AdminDashboardClient({
           {/* Status Badge & Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border bg-white shadow-2xs">
-              {isDemo ? (
-                <>
-                  <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                  <span className="text-amber-800">Demo Records Mode</span>
-                </>
-              ) : (
+              {!isDemo ? (
                 <>
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="text-emerald-800">Supabase Connected</span>
+                </>
+              ) : hasLiveRecords ? (
+                <>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-emerald-800">Live Roster Active ({effectiveRecords.length})</span>
+                </>
+              ) : (
+                <>
+                  <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                  <span className="text-amber-800">Demo Records Mode</span>
                 </>
               )}
             </div>
@@ -345,8 +373,8 @@ export function AdminDashboardClient({
           </div>
         )}
 
-        {/* Database notification banner if demo mode */}
-        {isDemo && (
+        {/* Database notification banner: only shown if no live applications exist yet and not dismissed */}
+        {!hasLiveRecords && isDemo && !bannerDismissed && (
           <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200 text-amber-900 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
             <div className="flex items-start gap-3">
               <Sparkles className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
@@ -355,20 +383,28 @@ export function AdminDashboardClient({
                   Viewing in Demo Mode with Ghanaian Campus Sample Data
                 </p>
                 <p className="text-amber-800 mt-0.5">
-                  To connect live attendee submissions, run the generated SQL migration in your Supabase SQL editor.
-                  Your `.env.local` keys are configured and ready.
+                  To connect live attendee submissions to Supabase, run the SQL script in your Supabase SQL editor.
                 </p>
               </div>
             </div>
-            <a
-              href="https://supabase.com/dashboard/project/qrfoifqbcgojvpwtlpon/sql/new"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold uppercase tracking-wider transition-all"
-            >
-              <span>Open Supabase SQL Editor</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+            <div className="flex items-center gap-2 shrink-0">
+              <a
+                href="https://supabase.com/dashboard/project/qrfoifqbcgojvpwtlpon/sql/new"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold uppercase tracking-wider transition-all"
+              >
+                <span>Open Supabase SQL Editor</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+              <button
+                onClick={() => setBannerDismissed(true)}
+                className="p-1.5 text-amber-700 hover:text-amber-950 rounded-lg hover:bg-amber-100 transition-colors"
+                title="Dismiss banner"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         )}
 

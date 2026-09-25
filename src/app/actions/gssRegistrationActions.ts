@@ -251,22 +251,20 @@ export async function getGssRegistrations(): Promise<{
     }
   }
 
-  // If Supabase table is not yet created or unreachable,
-  // place submitted reservations at the top of the roster, followed by sample entries
-  const seenIds = new Set<string>();
-  const combined: GssRegistrationRecord[] = [];
-
-  for (const item of [...localRecords, ...mockGssRegistrations]) {
-    if (!seenIds.has(item.id)) {
-      seenIds.add(item.id);
-      combined.push(item);
-    }
+  // If there are real submitted applications, return ONLY them.
+  // Never show sample demo records alongside real attendee applications.
+  if (localRecords.length > 0) {
+    return {
+      data: localRecords,
+      isDemo: false,
+    };
   }
 
+  // Only if no applications have been submitted at all, return the sample entries
   return {
-    data: combined,
+    data: mockGssRegistrations,
     isDemo: true,
-    error: "Supabase table 'girls_safe_space_registrations' pending creation.",
+    error: "No live registrations recorded yet.",
   };
 }
 
