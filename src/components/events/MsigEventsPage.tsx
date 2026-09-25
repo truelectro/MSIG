@@ -22,7 +22,11 @@ export function MsigEventsPage() {
         </div>
 
         {/* Active Flagship Events Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl">
+        <div
+          className={`grid grid-cols-1 ${
+            msigEvents.length > 1 ? "md:grid-cols-2 max-w-4xl" : "max-w-xl"
+          } gap-6 sm:gap-8`}
+        >
           {msigEvents.map((event, index) => (
             <EventCard
               key={event.id}

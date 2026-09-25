@@ -49,28 +49,30 @@ export const msigEvents: MsigEventItem[] = [
     accentColor: "pink",
     featuredBadge: "Active • Free Registration Open",
   },
-  {
-    id: "ride-your-flame",
-    title: "Ride Your Flame",
-    subtitle: "The Aburi Mountain Fondo 115K",
-    edition: "2026 Inaugural Ghana Edition",
-    status: "active",
-    discipline: "Pure Cycling (Road & Mountain Highway)",
-    category: "Cycling",
-    dateDisplay: "Saturday, October 17, 2026",
-    locationDisplay: "Ayi Mensah & Aburi Mountain Ridge, Eastern Region",
-    summary:
-      "Ghana's flagship 115 KM mountain cycling fondo ascending the legendary Akuapem escarpment from Accra to the Aburi Botanical Gardens finish line pavilion. 100% focused on pure road cycling with neutral mechanical support and scenic rest stations.",
-    highlights: [
-      "115 KM paved mountain highway course with 1,680m elevation gain",
-      "Full mobile SAG van & neutral mechanical paceline escorts",
-      "4 Rest stops featuring chilled fresh Ghanaian coconuts & electrolytes",
-      "Aburi Botanical Gardens finish celebration & cast gold medallion",
-    ],
-    subpageUrl: "/ride-your-flame",
-    registrationUrl: "/register",
-    logoId: "ride-your-flame",
-    accentColor: "gold",
-    featuredBadge: "Active • Registration Open",
-  },
 ];
+
+// Preserved for future release update
+export const rideYourFlameEvent: MsigEventItem = {
+  id: "ride-your-flame",
+  title: "Ride Your Flame",
+  subtitle: "The Aburi Mountain Fondo 115K",
+  edition: "2026 Inaugural Ghana Edition",
+  status: "active",
+  discipline: "Pure Cycling (Road & Mountain Highway)",
+  category: "Cycling",
+  dateDisplay: "Saturday, October 17, 2026",
+  locationDisplay: "Ayi Mensah & Aburi Mountain Ridge, Eastern Region",
+  summary:
+    "Ghana's flagship 115 KM mountain cycling fondo ascending the legendary Akuapem escarpment from Accra to the Aburi Botanical Gardens finish line pavilion. 100% focused on pure road cycling with neutral mechanical support and scenic rest stations.",
+  highlights: [
+    "115 KM paved mountain highway course with 1,680m elevation gain",
+    "Full mobile SAG van & neutral mechanical paceline escorts",
+    "4 Rest stops featuring chilled fresh Ghanaian coconuts & electrolytes",
+    "Aburi Botanical Gardens finish celebration & cast gold medallion",
+  ],
+  subpageUrl: "/ride-your-flame",
+  registrationUrl: "/register",
+  logoId: "ride-your-flame",
+  accentColor: "gold",
+  featuredBadge: "Active • Registration Open",
+};
