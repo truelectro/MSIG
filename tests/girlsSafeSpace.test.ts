@@ -1,0 +1,48 @@
+import { describe, it, expect } from "vitest";
+import { msigEvents } from "@/config/events";
+import { gssCampusStops, gssTopics, gssFaqs } from "@/config/girlsSafeSpaceConfig";
+
+describe("Girls' Safe Space Configuration & Events Integration", () => {
+  it("should have Girls' Safe Space registered in msigEvents", () => {
+    const gssEvent = msigEvents.find((e) => e.id === "girls-safe-space");
+    expect(gssEvent).toBeDefined();
+    expect(gssEvent?.title).toBe("Girls' Safe Space");
+    expect(gssEvent?.subpageUrl).toBe("/girl-safe-space");
+    expect(gssEvent?.status).toBe("active");
+  });
+
+  it("should have campus stops covering key Ghanaian universities", () => {
+    expect(gssCampusStops.length).toBeGreaterThanOrEqual(6);
+    const stopIds = gssCampusStops.map((s) => s.id);
+    expect(stopIds).toContain("ug-legon");
+    expect(stopIds).toContain("knust-kumasi");
+    expect(stopIds).toContain("upsa-accra");
+    expect(stopIds).toContain("ucc-capecoast");
+    expect(stopIds).toContain("ttu-takoradi");
+    expect(stopIds).toContain("uds-tamale");
+  });
+
+  it("should have the 6 core SRH topic modules defined with takeaways", () => {
+    expect(gssTopics.length).toBe(6);
+    const topicIds = gssTopics.map((t) => t.id);
+    expect(topicIds).toContain("cycle-syncing");
+    expect(topicIds).toContain("contraception-literacy");
+    expect(topicIds).toContain("bk1-backup");
+    expect(topicIds).toContain("pcos-period-pain");
+    expect(topicIds).toContain("vaginal-wellness");
+    expect(topicIds).toContain("intimacy-boundaries");
+
+    gssTopics.forEach((topic) => {
+      expect(topic.takeaways.length).toBeGreaterThanOrEqual(3);
+      expect(topic.title.length).toBeGreaterThan(0);
+    });
+  });
+
+  it("should have FAQs addressing confidentiality, BK-1, and free breast screening", () => {
+    expect(gssFaqs.length).toBeGreaterThanOrEqual(5);
+    const faqCategories = gssFaqs.map((f) => f.category);
+    expect(faqCategories).toContain("privacy");
+    expect(faqCategories).toContain("bk1");
+    expect(faqCategories).toContain("services");
+  });
+});
