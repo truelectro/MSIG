@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:sales": "npm --prefix sales-dashboard run dev",
     "build": "next build",
+    "build:sales": "npm --prefix sales-dashboard run build",
     "start": "next start",
     "lint": "tsc --noEmit",
     "test": "vitest run"

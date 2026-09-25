@@ -24,6 +24,7 @@ import {
   MapPin,
   X,
   Sparkles,
+  LogOut,
 } from "lucide-react";
 import {
   GssRegistrationRecord,
@@ -33,6 +34,8 @@ import {
 } from "@/app/actions/gssRegistrationActions";
 import { exportRegistrationsToExcel, exportRegistrationsToCsv } from "@/lib/exportExcel";
 import { GirlsSafeSpaceLogo } from "@/components/events/EventLogos";
+import { GssAdminLogin, GssAdminUser } from "./GssAdminLogin";
+import { supabase } from "@/lib/supabase";
 
 interface Props {
   initialRecords: GssRegistrationRecord[];
@@ -57,6 +60,42 @@ export function AdminDashboardClient({
 
   // Selected attendee for inspector modal
   const [selectedAttendee, setSelectedAttendee] = useState<GssRegistrationRecord | null>(null);
+
+  // Coordinator Authentication State
+  const [authenticatedAdmin, setAuthenticatedAdmin] = useState<GssAdminUser | null>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  // Check existing coordinator session on mount
+  React.useEffect(() => {
+    try {
+      const stored = localStorage.getItem("gss_admin_session");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && parsed.email) {
+          setAuthenticatedAdmin(parsed);
+        }
+      }
+    } catch {
+      // Ignored
+    } finally {
+      setIsCheckingAuth(false);
+    }
+  }, []);
+
+  const handleSignOut = async () => {
+    try {
+      if (supabase) {
+        await supabase.auth.signOut();
+      }
+    } catch {
+      // Ignore
+    }
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("gss_admin_session");
+      document.cookie = "gss_admin_auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+    setAuthenticatedAdmin(null);
+  };
 
   // Load any registrations that were submitted in this browser
   React.useEffect(() => {
@@ -238,6 +277,25 @@ export function AdminDashboardClient({
     setTimeout(() => setBannerNotice(null), 4000);
   };
 
+  // Auth Guard: Show loader while validating session
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen bg-[#FBF9F7] flex items-center justify-center p-4">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-3 border-[#662d91] border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs font-semibold text-[#8A7980]">
+            Verifying coordinator credentials...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Auth Guard: Require login if unauthenticated
+  if (!authenticatedAdmin) {
+    return <GssAdminLogin onLoginSuccess={(user) => setAuthenticatedAdmin(user)} />;
+  }
+
   return (
     <div className="min-h-screen bg-[#FBF9F7] text-[#1A1416] font-sans antialiased pb-24">
       {/* Top Navigation Bar */}
@@ -298,6 +356,32 @@ export function AdminDashboardClient({
               <PlusCircle className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Add RSVP</span>
             </button>
+
+            {/* Coordinator Account & Sign Out */}
+            <div className="flex items-center gap-2 pl-2 border-l border-[#EADFD7]">
+              <div className="hidden xl:flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-[#FAF8F5] border border-[#EADFD7]">
+                <div className="w-6 h-6 rounded-full bg-[#662d91] text-white flex items-center justify-center text-[10px] font-black">
+                  HS
+                </div>
+                <div className="text-left">
+                  <div className="text-xs font-bold text-[#1A1416] leading-none">
+                    {authenticatedAdmin.name}
+                  </div>
+                  <div className="text-[10px] text-[#662d91] font-semibold leading-tight mt-0.5">
+                    GSS Coordinator
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={handleSignOut}
+                title="Sign out of coordinator portal"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-rose-200 bg-rose-50 text-xs font-semibold text-rose-700 hover:bg-rose-100 transition-all"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Sign Out</span>
+              </button>
+            </div>
           </div>
         </div>
       </header>
