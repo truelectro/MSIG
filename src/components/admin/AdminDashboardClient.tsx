@@ -56,6 +56,28 @@ export function AdminDashboardClient({
   // Selected attendee for inspector modal
   const [selectedAttendee, setSelectedAttendee] = useState<GssRegistrationRecord | null>(null);
 
+  // Load any registrations that were submitted in this browser
+  React.useEffect(() => {
+    try {
+      const raw = localStorage.getItem("gss_browser_submissions");
+      if (raw) {
+        const browserSubs = JSON.parse(raw) as GssRegistrationRecord[];
+        if (Array.isArray(browserSubs) && browserSubs.length > 0) {
+          setRecords((current) => {
+            const currentIds = new Set(current.map((r) => r.id));
+            const newEntries = browserSubs.filter((b) => !currentIds.has(b.id));
+            if (newEntries.length > 0) {
+              return [...newEntries, ...current];
+            }
+            return current;
+          });
+        }
+      }
+    } catch {
+      // Ignored
+    }
+  }, []);
+
   // Quick RSVP modal
   const [showAddModal, setShowAddModal] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
@@ -135,6 +157,18 @@ export function AdminDashboardClient({
     if (res.success) {
       setRecords((prev) => prev.filter((r) => r.id !== id));
       if (selectedAttendee?.id === id) setSelectedAttendee(null);
+      if (typeof window !== "undefined") {
+        try {
+          const raw = localStorage.getItem("gss_browser_submissions");
+          if (raw) {
+            const browserSubs = JSON.parse(raw) as GssRegistrationRecord[];
+            const updated = browserSubs.filter((r) => r.id !== id);
+            localStorage.setItem("gss_browser_submissions", JSON.stringify(updated));
+          }
+        } catch {
+          // Ignored
+        }
+      }
       setBannerNotice({
         type: "info",
         message: `Removed ${name} from roster.`,
@@ -590,9 +624,16 @@ export function AdminDashboardClient({
                               {attendee.name.charAt(0).toUpperCase()}
                             </div>
                             <div>
-                              <span className="font-bold text-[#1A1416] block group-hover:text-[#662d91] transition-colors">
-                                {attendee.name}
-                              </span>
+                              <div className="flex items-center gap-1.5">
+                                <span className="font-bold text-[#1A1416] block group-hover:text-[#662d91] transition-colors">
+                                  {attendee.name}
+                                </span>
+                                {!attendee.id.startsWith("demo-") && (
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider shrink-0">
+                                    Live RSVP
+                                  </span>
+                                )}
+                              </div>
                               <span className="text-[11px] text-[#8A7980]">
                                 {new Date(attendee.created_at).toLocaleDateString("en-GB", {
                                   day: "numeric",

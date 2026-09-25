@@ -40,6 +40,16 @@ export function GssRegistrationSection() {
       });
 
       if (result.success) {
+        if (result.record && typeof window !== "undefined") {
+          try {
+            const raw = localStorage.getItem("gss_browser_submissions");
+            const existing = raw ? JSON.parse(raw) : [];
+            const updated = [result.record, ...existing.filter((r: { id: string }) => r.id !== result.record!.id)];
+            localStorage.setItem("gss_browser_submissions", JSON.stringify(updated));
+          } catch {
+            // Local storage access error ignored
+          }
+        }
         setSubmitted(true);
       } else {
         setErrorMessage(result.error || "Failed to submit registration. Please try again.");

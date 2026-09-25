@@ -43,4 +43,44 @@ describe("Girls' Safe Space Configuration & Events Integration", () => {
     expect(faqCategories).toContain("bk1");
     expect(faqCategories).toContain("services");
   });
+
+  it("should allow submitting, retrieving, and deleting a GSS registration", async () => {
+    const {
+      submitGssRegistration,
+      getGssRegistrations,
+      deleteGssRegistration,
+    } = await import("@/app/actions/gssRegistrationActions");
+
+    const testName = "Test Attendee " + Date.now();
+    const result = await submitGssRegistration({
+      name: testName,
+      phoneNumber: "0241234567",
+      stop: "UG Legon",
+      sessionTime: "7:00 PM – 8:00 PM",
+      reserveBk1Kit: true,
+      reserveBreastExam: true,
+      anonymousQuestion: "Is this test working?",
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.record).toBeDefined();
+    expect(result.record?.name).toBe(testName);
+
+    // Retrieve registrations
+    const listRes = await getGssRegistrations();
+    expect(listRes.data.length).toBeGreaterThan(0);
+    const found = listRes.data.find((r) => r.name === testName);
+    expect(found).toBeDefined();
+    expect(found?.phone_number).toBe("0241234567");
+
+    // Clean up
+    if (result.record?.id) {
+      const delRes = await deleteGssRegistration(result.record.id);
+      expect(delRes.success).toBe(true);
+
+      const afterDel = await getGssRegistrations();
+      const stillFound = afterDel.data.find((r) => r.id === result.record?.id);
+      expect(stillFound).toBeUndefined();
+    }
+  });
 });
