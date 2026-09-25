@@ -16,9 +16,6 @@ export default function GirlSafeSpaceRegisterPage() {
         {/* Event Quick Context Card */}
         <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#EADFD7] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#662d91] block">
-              Event Details • Campus Edition
-            </span>
             <h1 className="text-2xl sm:text-3xl font-black text-[#1A1416] tracking-tight">
               UG Legon Campus Session
             </h1>

@@ -65,9 +65,6 @@ export function GssRegistrationSection({ isStandalone = false }: { isStandalone?
     <div className={isStandalone ? "p-6 sm:p-10 lg:p-12" : "max-w-4xl mx-auto px-6 lg:px-12"}>
       {/* Section Header */}
       <div className="space-y-4 mb-10">
-        <span className="text-xs font-gss-sans font-bold uppercase tracking-widest text-[#662d91]">
-          {isStandalone ? "Free Campus Registration" : "(02) Pre-Registration"}
-        </span>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-gss-sans font-black text-[#1A1416] tracking-tight">
           Reserve Your Free Spot on{" "}
           <span className="font-gss-editorial italic font-normal text-[#662d91]">
@@ -75,8 +72,8 @@ export function GssRegistrationSection({ isStandalone = false }: { isStandalone?
           </span>
         </h2>
         <p className="text-sm sm:text-base text-[#574B51] font-gss-sans max-w-xl">
-          Attendance is 100% free. Every attendee receives an educational cycle journal,
-          access to private midwife consultation pods, and a complimentary take-home BK-1 Backup Kit.
+          Attendance is 100% free. Connect with peer educators and licensed midwives in a welcoming,
+          judgment-free lifestyle space.
         </p>
       </div>
 
