@@ -37,21 +37,6 @@ export function GssFooter() {
                 </Link>
               </li>
               <li>
-                <a href="#topics" className="hover:text-white transition-colors">
-                  SRH Topics
-                </a>
-              </li>
-              <li>
-                <a href="#bk1" className="hover:text-white transition-colors">
-                  BK-1 Emergency Kit
-                </a>
-              </li>
-              <li>
-                <a href="#care" className="hover:text-white transition-colors">
-                  Pink October Screenings
-                </a>
-              </li>
-              <li>
                 <a href="#tour" className="hover:text-white transition-colors">
                   Campus Tour Dates
                 </a>

@@ -18,8 +18,8 @@ export function GssRegistrationCtaSection() {
         </h2>
 
         <p className="text-sm sm:text-base text-[#574B51] font-gss-sans max-w-xl mx-auto leading-relaxed">
-          Attendance is 100% free. Every attendee receives an educational cycle journal,
-          access to private midwife consultation pods, and a complimentary take-home BK-1 Backup Kit.
+          Attendance is 100% free. Connect with peer educators and licensed midwives in a welcoming,
+          judgment-free lifestyle space.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm text-[#574B51] pt-2">

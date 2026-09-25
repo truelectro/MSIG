@@ -9,7 +9,7 @@ export function GssCampusTour() {
         {/* Section Header */}
         <div className="max-w-3xl mb-16 space-y-4">
           <span className="text-xs font-gss-sans font-bold uppercase tracking-widest text-[#662d91]">
-            (06) The Schedule
+            (03) Campus Tour
           </span>
           <h2 className="text-4xl sm:text-5xl font-gss-sans font-black tracking-tight text-[#1A1416]">
             Campus Tour Dates &{" "}
@@ -18,8 +18,7 @@ export function GssCampusTour() {
             </span>
           </h2>
           <p className="text-base sm:text-lg text-[#574B51] font-gss-sans leading-relaxed">
-            Free admission, take-home BK-1 kits, and private screening slots at each university stop.
-            Pre-registration is required to guarantee your kit.
+            Free admission at each university stop. Pre-registration is required to reserve your spot.
           </p>
         </div>
 
@@ -53,7 +52,7 @@ export function GssCampusTour() {
                   href="/girl-safe-space/register"
                   className="inline-flex items-center gap-1.5 text-xs font-gss-sans font-bold uppercase tracking-wider text-[#662d91] hover:text-[#522277] transition-colors"
                 >
-                  <span>Reserve Pass</span>
+                  <span>Reserve Spot</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
               </div>

@@ -22,8 +22,8 @@ export function GssHero() {
             <p className="text-base sm:text-lg text-[#574B51] font-gss-sans leading-relaxed max-w-xl">
               Traditional clinics can feel intimidating and full of whispers. Girls&apos; Safe
               Space brings reproductive healthcare into a trendy, comfortable lifestyle setting
-              where young Ghanaian women can openly explore cycle syncing, modern birth control,
-              and receive free clinical breast screenings—completely judgment-free.
+              where young Ghanaian women can openly explore cycle syncing, body literacy,
+              and reproductive wellness—completely judgment-free.
             </p>
 
             <div className="pt-2 flex items-center gap-6">
@@ -31,15 +31,15 @@ export function GssHero() {
                 href="/girl-safe-space/register"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#662d91] hover:bg-[#522277] text-white font-gss-sans font-bold text-sm tracking-wide transition-all shadow-sm hover:shadow-md hover:shadow-[#662d91]/25"
               >
-                <span>Reserve Free Entry & Kit</span>
+                <span>Reserve Free Spot</span>
                 <ArrowUpRight className="w-4 h-4" />
               </a>
 
               <a
-                href="#topics"
+                href="#tour"
                 className="text-xs font-gss-sans font-bold uppercase tracking-widest text-[#8A7980] hover:text-[#662d91] transition-colors"
               >
-                (01) Explore Topics
+                (01) Campus Tour Dates
               </a>
             </div>
 
@@ -47,7 +47,7 @@ export function GssHero() {
               <span>Campus Tour • UG Legon • September 25, 7:00 PM – 8:00 PM</span>
               <span className="font-semibold text-[#662d91] inline-flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#ec008c]" aria-hidden="true" />
-                <span>Free BK-1 Kit Included</span>
+                <span>Free Admission</span>
               </span>
             </div>
           </div>

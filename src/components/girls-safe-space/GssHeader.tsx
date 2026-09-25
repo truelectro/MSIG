@@ -11,9 +11,6 @@ export function GssHeader() {
   const navLinks = [
     { href: "/girl-safe-space#about", label: "About" },
     { href: "/girl-safe-space/register", label: "Register" },
-    { href: "/girl-safe-space#topics", label: "Topics" },
-    { href: "/girl-safe-space#bk1", label: "BK-1 Kit" },
-    { href: "/girl-safe-space#care", label: "Screenings" },
     { href: "/girl-safe-space#tour", label: "Campus Tour" },
   ];
 
@@ -101,7 +98,7 @@ export function GssHeader() {
                 onClick={() => setMobileOpen(false)}
                 className="w-full text-center py-3 rounded-full bg-[#662d91] hover:bg-[#522277] text-white text-xs font-bold uppercase tracking-wider"
               >
-                Reserve Free Spot & BK-1 Kit
+                Reserve Free Spot
               </Link>
               <Link
                 href="/"
